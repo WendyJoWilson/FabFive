@@ -4,9 +4,9 @@
                10  PART-NAME         PIC X(14) VALUE SPACES.
                10  SPEC-NUMBER       PIC X(07) VALUE SPACES.
                10  GOVT-COMML-CODE   PIC X(01) VALUE SPACES.
-               10  BLUEPRINT-NUMBER  PIC X(10) VALUE SPACES.
+               10  BLUEPRINT-NUMBER  PIC X(10) VALUE SPACES.            *>PIC X(05) VALUE SPACES.
                10  UNIT-OF-MEASURE   PIC X(03) VALUE SPACES.
-               10  WEEKS-LEAD-TIME   PIC 9(03) VALUE ZERO.
+               10  WEEKS-LEAD-TIME   PIC 9(03) VALUE ZERO.              *>PIC S9(04) COMP VALUE ZEROS.
                10  VEHICLE-MAKE      PIC X(03) VALUE SPACES.
                     88 CHRYSLER       VALUE 'CHR'.
                     88 FORD           VALUE 'FOR'.
@@ -16,18 +16,18 @@
                     88 JAGUAR         VALUE 'JAG'.
                     88 PEUGEOT        VALUE 'PEU'.
                     88 BMW            VALUE 'BMW'.
-               10  VEHICLE-MODEL     PIC X(10) VALUE SPACES.
+               10  VEHICLE-MODEL     PIC X(10) VALUE SPACES.		*>PIC X(05) VALUE SPACES.
                10  VEHICLE-YEAR      PIC X(04) VALUE '0000'.
-               10  FILLER            PIC X(14) VALUE SPACES.
+               10  FILLER            PIC X(14) VALUE SPACES.		*>NO FILLER.
            05 SUPPLIERS.
-               10  SUPPLIER-CODE     PIC X(10) VALUE SPACES.
+               10  SUPPLIER-CODE     PIC X(10) VALUE SPACES.		*>PIC X(05) VALUE SPACES.		
                10  SUPPLIER-TYPE     PIC X(01) VALUE SPACES.
                     88 SUBCONTRACTOR  VALUE 'S'.
                     88 DISTRIBUTOR    VALUE 'D'.
                     88 MANUFACTURER   VALUE 'M'.
                     88 IMPORTER       VALUE 'I'.
                10  SUPPLIER-NAME     PIC X(15) VALUE SPACES.
-               10  SUPPLIER-PERF     PIC 9(03) VALUE ZERO.
+               10  SUPPLIER-PERF     PIC 9(03) VALUE ZERO.		*>PIC 9(03) COMP VALUE ZERO.
                10  SUPPLIER-RATING   PIC X(01) VALUE SPACES.
                     88 HIGHEST-QUALITY VALUE '3'.
                     88 AVERAGE-QUALITY VALUE '2'.
@@ -36,7 +36,7 @@
                     88 GOVT-COMM       VALUE '1'.
                     88 GOVT-ONLY       VALUE '2'.
                     88 COMMERCIAL-ONLY VALUE '3'.
-               10  SUPPLIER-ACT-DATE PIC 9(08) VALUE ZERO.
+               10  SUPPLIER-ACT-DATE PIC 9(08) VALUE ZERO.		*>PIC X(08) VALUE SPACES.
            05 SUPP-ADDRESS OCCURS 3 TIMES INDEXED BY ADDR-IDX.
                10 ADDRESS-TYPE      PIC X(01) VALUE SPACES.
                   88 ORDER-ADDRESS           VALUE '1'.
@@ -47,11 +47,11 @@
                10 ADDRESS-3         PIC X(15) VALUE SPACES.
                10 CITY              PIC X(15) VALUE SPACES.
                10 ADDR-STATE        PIC X(02) VALUE SPACES.
-               10 ZIP-CODE          PIC 9(10) VALUE ZERO.
+               10 ZIP-CODE          PIC 9(10) VALUE ZERO.		*>PIC X(05) VALUE SPACES.
            05 PURCHASE-ORDER OCCURS 3 TIMES INDEXED BY PO-IDX.
                10  PO-NUMBER         PIC X(06) VALUE SPACES.
                10  BUYER-CODE        PIC X(03) VALUE SPACES.
-               10  QUANTITY          PIC S9(7) VALUE ZERO.
-               10  UNIT-PRICE        PIC S9(7)V99 VALUE ZERO.
-               10  ORDER-DATE        PIC 9(08) VALUE ZERO.
-               10  DELIVERY-DATE     PIC 9(08) VALUE ZERO.
+               10  QUANTITY          PIC S9(7) VALUE ZERO.		*>PIC S9(08)COMP-3 VALUE ZERO.
+               10  UNIT-PRICE        PIC S9(7)V99 VALUE ZERO.		*>PIC S9(07)V99 COMP-3 VALUE ZERO.
+               10  ORDER-DATE        PIC 9(08) VALUE ZERO.		*>PIC X(O8) VALUE SPACES.
+               10  DELIVERY-DATE     PIC 9(08) VALUE ZERO.		*>PIC X(08) VALUE SPACES.  
