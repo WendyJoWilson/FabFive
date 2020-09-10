@@ -2388,8 +2388,8 @@
       *****************************************************************
            MOVE PARTSUPP-INPUT TO PRTLINE.
            DISPLAY PRTLINE.
-           DISPLAY "NEXT RECORD".
-           INITIALIZE PRTLINE.
+           DISPLAY "END RECORD".
+          
       *****************************************************************
            GOBACK.
       
