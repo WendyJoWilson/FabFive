@@ -1,10 +1,11 @@
       IDENTIFICATION DIVISION.
-       PROGRAM-ID. PERINPUT.
-      
+      PROGRAM-ID. PERRCRD.
+      AUTHOR.  FabFive.
       *****************************************************************
-      ***** THIS PROGRAM CREATES RECORDS FOR THE INPUT FILE
-      ***** FOR THE FINAL EXAM. RECORDS 1-30 ARE PERFECT RECORDS.
-      *****
+      *****  THIS PROGRAM CREATES RECORDS 
+      *****  FOR THE INPUT FILE FOR THE FINAL EXAM. 
+      *****  RECORDS 1-30 ARE VALID AND ERROR FREE.
+      *****************************************************************
       *>>>>> FAB FIVE
       *TECH-LEAD:  RICHARD DARROW
       *PROGRAMMER/ANALYST:  AGAPIOS KALOKERINOS
