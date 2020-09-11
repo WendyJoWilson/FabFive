@@ -1,6 +1,13 @@
        IDENTIFICATION DIVISION.
-       PROGRAM-ID.      FINALEXM.
-       AUTHOR.          IBM.
+     PROGRAM-ID.      FINALEXM.
+     AUTHOR.          FabFive.    
+     *****************************************************************
+     *     FabFive TEAM:
+     *     TECH-LEAD:  RICHARD DARROW
+     *     PROGRAMMER/ANALYST:  AGAPIOS KALOKERINOS
+     *     PROGRAMMER/ANALYST:  DORETHA RILEY
+     *     TESTER:  ROBERTA ADRIANA de SOUZA
+     *     TESTER:  WENDY J. WILSON 
 
       ******************************************************************
       ****                 FINAL EXAM
