@@ -1,0 +1,137 @@
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID.      SADREDIT.
+       AUTHOR.          FABFIVE.
+      *****************************************************************
+      *     FabFive TEAM:
+      *     TECH-LEAD:  RICHARD DARROW
+      *     PROGRAMMER/ANALYST:  AGAPIOS KALOKERINOS
+      *     PROGRAMMER/ANALYST:  DORETHA RILEY
+      *     TESTER:  ROBERTA ADRIANA de SOUZA
+      *     TESTER:  WENDY J. WILSON
+      
+      ******************************************************************
+      ****                 FINAL EXAM
+      ****
+      **** THIS SUBROUTINE RECEIVES A SUPPLIER ADDRESS RECORD AND
+      ****  VAILIDATES THE CONTENTS OF THE RECORD
+      **** IF ERRORS FOUND IT RETURNS A ERROR MESSAGE TABLE AND A
+      **** RETURN CODE TO THE CALLING PROGRAM.
+      ****
+      ******************************************************************
+      
+       ENVIRONMENT DIVISION.
+       INPUT-OUTPUT SECTION.
+      
+       DATA DIVISION.
+      
+       WORKING-STORAGE SECTION.
+      
+       01  W-STATE-ZIP-VALID             PIC X.
+           88 VALID-STATE-ZIP               VALUE 'Y'.
+      
+       01  W-ZIP-TABLE-MAX               PIC S9(4) COMP VALUE 72.
+      
+      *****************************************************************
+       LINKAGE SECTION.
+       01  LS-SUPP-ADDRESS.
+           05 LS-ADDRESS-TYPE      PIC X(01) VALUE SPACES.
+               88 ORDER-ADDRESS           VALUE '1'.
+               88 SCHED-ADDRESS           VALUE '2'.
+               88 REMIT-ADDRESS           VALUE '3'.
+               88 VALID-ADDRESS-TYPE      VALUE '1' '2' '3'.
+           05 LS-ADDRESS-1         PIC X(15) VALUE SPACES.
+           05 LS-ADDRESS-2         PIC X(15) VALUE SPACES.
+           05 LS-ADDRESS-3         PIC X(15) VALUE SPACES.
+           05 LS-CITY              PIC X(15) VALUE SPACES.
+           05 LS-ADDR-STATE        PIC X(02) VALUE SPACES.
+           05 LS-ZIP-CODE          PIC 9(10) VALUE ZERO.
+      
+       01  LS-RC                                PIC 9.
+      
+       01  LS-ERROR-SADDR.
+           05 LS-ERROR-SADDR-DETAIL
+                    OCCURS 20 TIMES INDEXED BY LS-ERR-IDX.
+                10 LS-ERR-MSG                   PIC X(50).
+      
+       01  LS-ZIP-CODE-TABLE.
+           05 LS-ZIP-CODE-ENTRIES OCCURS 72 TIMES
+                            ASCENDING KEY IS LS-ST-NAME
+                            INDEXED BY LS-ZIP-IDX.
+           10 LS-STATE-NAME         PIC X(14)   VALUE SPACES.
+           10 FILLER                PIC X(02)   VALUE SPACES.
+           10 LS-ST-NAME            PIC X(02)   VALUE SPACES.
+           10 FILLER                PIC X(02)   VALUE SPACES.
+           10 LS-ZIP-LOW            PIC X(05)   VALUE SPACES.
+           10 FILLER                PIC X(03)   VALUE SPACES.
+           10 LS-ZIP-HIGH           PIC X(05)   VALUE SPACES.
+      
+      *****************************************************************
+      
+       PROCEDURE DIVISION USING LS-SUPP-ADDRESS, LS-RC,
+                                LS-ERROR-SADDR, LS-ZIP-CODE-TABLE.
+           INITIALIZE LS-ERROR-SADDR, LS-RC.
+           PERFORM 200-VALIDATE-SUPPLIER-ADDRESS.
+           PERFORM 300-RETURN-TO-CALLING-PGM.
+           GOBACK.
+      
+       200-VALIDATE-SUPPLIER-ADDRESS.
+           SET LS-ERR-IDX TO 1.
+      
+           IF VALID-ADDRESS-TYPE
+              NEXT SENTENCE
+           ELSE
+              MOVE '***SUPPLIER ADDRESS TYPE MUST BE 1 2 OR 3'
+                                  TO LS-ERR-MSG(LS-ERR-IDX)
+              SET LS-ERR-IDX UP BY 1.
+      
+           IF LS-ADDRESS-1 = SPACE
+              MOVE '***SUPPLIER ADDRESS CANNOT BE BLANK'
+                                  TO LS-ERR-MSG(LS-ERR-IDX)
+              SET LS-ERR-IDX UP BY 1.
+      
+           IF LS-CITY = SPACE
+              MOVE '***SUPPLIER CITY CANNOT BE BLANK'
+                                  TO LS-ERR-MSG(LS-ERR-IDX)
+              SET LS-ERR-IDX UP BY 1.
+      
+           IF LS-ADDR-STATE = SPACE
+              MOVE '***SUPPLIER STATE CANNOT BE BLANK'
+                                  TO LS-ERR-MSG(LS-ERR-IDX)
+              SET LS-ERR-IDX UP BY 1.
+      
+           IF LS-ZIP-CODE = SPACE
+              MOVE '***SUPPLIER ZIP-CODE CANNOT BE BLANK'
+                                  TO LS-ERR-MSG(LS-ERR-IDX)
+              SET LS-ERR-IDX UP BY 1.
+      
+           IF LS-ADDR-STATE NOT = SPACE AND
+                    LS-ZIP-CODE NOT = SPACE
+                PERFORM 250-VALIDATE-ZIP
+                IF VALID-STATE-ZIP
+                    NEXT SENTENCE
+                ELSE
+                    MOVE
+                '***SUPPLIER STATE/ZIP CODE COMBINATION IS INVALID '
+                                  TO LS-ERR-MSG(LS-ERR-IDX)
+                        SET LS-ERR-IDX UP BY 1
+                 END-IF
+           END-IF.
+      
+      
+       250-VALIDATE-ZIP.
+           MOVE 'N' TO W-STATE-ZIP-VALID.
+           PERFORM VARYING LS-ZIP-IDX FROM 1 BY 1
+             UNTIL LS-ZIP-IDX > W-ZIP-TABLE-MAX OR
+               LS-ZIP-CODE(1:5) >= LS-ZIP-LOW(LS-ZIP-IDX) AND
+               LS-ZIP-CODE(1:5) <= LS-ZIP-HIGH(LS-ZIP-IDX)
+           END-PERFORM.
+      
+           IF LS-ADDR-STATE = LS-ST-NAME(LS-ZIP-IDX)
+                 MOVE 'Y' TO W-STATE-ZIP-VALID
+           END-IF.
+      
+       300-RETURN-TO-CALLING-PGM.
+           IF LS-ERR-MSG(1) = SPACES
+              MOVE 0 TO LS-RC
+           ELSE
+              MOVE 8 TO LS-RC.
