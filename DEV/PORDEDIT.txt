@@ -1,0 +1,169 @@
+    IDENTIFICATION DIVISION.
+       PROGRAM-ID.      PORDEDIT.
+       AUTHOR.          FABFIVE.
+      *****************************************************************
+      *     FabFive TEAM:
+      *     TECH-LEAD:  RICHARD DARROW
+      *     PROGRAMMER/ANALYST:  AGAPIOS KALOKERINOS
+      *     PROGRAMMER/ANALYST:  DORETHA RILEY
+      *     TESTER:  ROBERTA ADRIANA de SOUZA
+      *     TESTER:  WENDY J. WILSON
+      
+      ******************************************************************
+      ****                 FINAL EXAM
+      ****
+      **** THIS SUBROUTINE RECEIVES A PURCHASE ORDER RECORD AND
+      **** VAILIDATES THE CONTENTS OF THE RECORD
+      **** IF ERRORS FOUND IT RETURNS A ERROR MESSAGE TABLE AND A
+      **** RETURN CODE TO THE CALLING PROGRAM.
+      ****
+      ******************************************************************
+      
+       ENVIRONMENT DIVISION.
+       INPUT-OUTPUT SECTION.
+      
+       DATA DIVISION.
+      
+       WORKING-STORAGE SECTION.
+       77  WS-STORAGE-IND                PIC X(60)
+                     VALUE     'WORKING STORAGE BEGINS HERE'.
+      
+       01  W-INPUT-DATE-INT             PIC 9(9) COMP.
+       01  W-PICSTR-IN.
+           10  W-PICSTR-LTH-IN          PIC S9(4) COMP VALUE 8.
+           10  W-PICSTR-STR-IN          PIC X(8)  VALUE 'YYYYMMDD'.
+       01  W-DATE-IN-CEE.
+           10  W-DATE-IN-LTH-CEE        PIC S9(4) COMP VALUE 8.
+           10  W-DATE-IN-STR-CEE        PIC X(8).
+       01  FC.
+           10  FC-SEV                   PIC S9(4) COMP.
+           10  FC-MSG                   PIC S9(4) COMP.
+           10  FC-CTW                   PIC X.
+           10  FC-FAC                   PIC X(3).
+           10  FC-ISI                   PIC S9(8) COMP.
+      
+       01 FILLER                        PIC X(12)
+                         VALUE 'WS ENDS HERE'.
+      *****************************************************************
+       LINKAGE SECTION.
+       01  LS-PURCHASE-ORDER.
+           05  LS-PO-NUMBER         PIC X(06) VALUE SPACES.
+           05  LS-BUYER-CODE        PIC X(03) VALUE SPACES.
+           05  LS-QUANTITY          PIC S9(7) VALUE ZERO.
+               88 VALID-QUANTITY    VALUE 0 THRU 999999.
+           05  LS-UNIT-PRICE        PIC S9(7)V99 VALUE ZERO.
+               88 VALID-UNIT-PRICE  VALUE 1.00 THRU 1000000.00.
+           05  LS-ORDER-DATE        PIC 9(08) VALUE ZERO.
+           05  LS-DELIVERY-DATE     PIC 9(08) VALUE ZERO.
+      
+       01  LS-RC                                PIC 9.
+      
+       01  LS-ERROR-PO.
+           05 LS-ERROR-PO-DETAIL
+                    OCCURS 20 TIMES INDEXED BY LS-ERR-IDX.
+                10 LS-ERR-MSG                   PIC X(50).
+      
+      *****************************************************************
+      
+       PROCEDURE DIVISION USING LS-PURCHASE-ORDER, LS-RC, LS-ERROR-PO.
+           INITIALIZE LS-ERROR-PO, LS-RC.
+           PERFORM 200-VALIDATE-PO.
+           PERFORM 300-RETURN-TO-CALLING-PGM.
+           GOBACK.
+      
+       200-VALIDATE-PO.
+           SET LS-ERR-IDX TO 1.
+           IF LS-PO-NUMBER = SPACE
+              MOVE '***PURCHASE ORDER NUMBER CANNOT BE BLANK'
+                                  TO LS-ERR-MSG(LS-ERR-IDX)
+              SET LS-ERR-IDX UP BY 1
+           END-IF.
+      
+           IF LS-BUYER-CODE = SPACE
+              MOVE '***PURCHASE ORDER BUYER CODE CANNOT BE BLANK'
+                                  TO LS-ERR-MSG(LS-ERR-IDX)
+              SET LS-ERR-IDX UP BY 1
+           END-IF.
+      
+           IF LS-QUANTITY IS NUMERIC
+                IF VALID-QUANTITY
+                    IF LS-UNIT-PRICE IS NUMERIC
+                        IF LS-QUANTITY > 0 AND VALID-UNIT-PRICE
+                           NEXT SENTENCE
+                        ELSE
+               MOVE '***PO UNIT PRICE MUST BE > 0 IF QUANTITY IS > 0'
+                           TO LS-ERR-MSG(LS-ERR-IDX)
+                        SET LS-ERR-IDX UP BY 1
+                    ELSE
+               MOVE '***PO UNIT PRICE MUST BE NUMERIC'
+                                   TO LS-ERR-MSG(LS-ERR-IDX)
+                        SET LS-ERR-IDX UP BY 1
+                ELSE
+              MOVE '***PO QUANTITY MUST BE BETWEEN 0 AND 999,999'
+                                  TO LS-ERR-MSG(LS-ERR-IDX)
+                        SET LS-ERR-IDX UP BY 1
+           ELSE
+              MOVE '***PO QUANTITY MUST BE BETWEEN 0 AND 999,999'
+                                  TO LS-ERR-MSG(LS-ERR-IDX)
+              SET LS-ERR-IDX UP BY 1
+           END-IF
+      
+           IF LS-UNIT-PRICE IS NUMERIC
+                IF VALID-UNIT-PRICE
+                    NEXT SENTENCE
+                ELSE
+            MOVE "***PO UNIT PRICE MUST BE BTWN 1 AND 1,000,000'.'00"
+                        TO LS-ERR-MSG(LS-ERR-IDX)
+                        SET LS-ERR-IDX UP BY 1
+                END-IF
+           ELSE
+              MOVE '***PO UNIT QUANTITY MUST BE NUMERIC'
+                                   TO LS-ERR-MSG(LS-ERR-IDX)
+                        SET LS-ERR-IDX UP BY 1
+           END-IF.
+      
+           IF LS-ORDER-DATE = SPACE
+                MOVE '***PURCHASE ORDER DATE CANNOT BE ZER0'
+                                  TO LS-ERR-MSG(LS-ERR-IDX)
+                SET LS-ERR-IDX UP BY 1
+           ELSE
+                MOVE LS-ORDER-DATE TO W-DATE-IN-STR-CEE
+                PERFORM 250-DATE-CHECK
+                IF FC-SEV NOT = ZERO
+                    MOVE '***PURCHASE ORDER DATE IS INVALID'
+                                  TO LS-ERR-MSG(LS-ERR-IDX)
+                    SET LS-ERR-IDX UP BY 1
+                ELSE
+                    IF LS-DELIVERY-DATE = SPACE
+                        NEXT SENTENCE
+                    ELSE
+                       MOVE LS-DELIVERY-DATE TO W-DATE-IN-STR-CEE
+                       PERFORM 250-DATE-CHECK
+                       IF FC-SEV NOT = ZERO
+                           MOVE
+                          '***PURCHASE ORDER DELIVERY DATE IS INVALID'
+                                 TO LS-ERR-MSG(LS-ERR-IDX)
+                           SET LS-ERR-IDX UP BY 1
+                       ELSE
+                            IF LS-DELIVERY-DATE <= LS-ORDER-DATE
+                               MOVE
+                  '**PURCHASE ORDER DATE MUST BE BEFORE DELIVERY DATE'
+                                 TO LS-ERR-MSG(LS-ERR-IDX)
+                               SET LS-ERR-IDX UP BY 1
+                            ELSE
+                                NEXT SENTENCE
+                            END-IF
+                       END-IF
+                    END-IF
+               END-IF
+           END-IF.
+      
+       250-DATE-CHECK.
+           CALL 'CEEDAYS' USING W-DATE-IN-CEE,
+                    W-PICSTR-IN, W-INPUT-DATE-INT, FC.
+      
+       300-RETURN-TO-CALLING-PGM.
+           IF LS-ERR-MSG(1) = SPACES
+              MOVE 0 TO LS-RC
+           ELSE
+              MOVE 8 TO LS-RC.
