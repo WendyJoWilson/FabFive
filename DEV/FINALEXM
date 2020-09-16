@@ -22,49 +22,59 @@
        ENVIRONMENT DIVISION.
        INPUT-OUTPUT SECTION.
        FILE-CONTROL.
-           SELECT PARTFILE
+         SELECT PARTFILE
                ASSIGN TO PARTSIN
                ORGANIZATION IS SEQUENTIAL
                FILE STATUS IS PARTFILE-ST.
-
+      
+           SELECT ZIPFILE
+               ASSIGN TO ZIPFILE
+               ORGANIZATION IS SEQUENTIAL
+               FILE STATUS IS ZIPFILE-ST.
+      
            SELECT PARTOUT
                ASSIGN TO PARTOUT
                ORGANIZATION IS SEQUENTIAL
                FILE STATUS IS PARTOUT-ST.
-
+      
            SELECT SUPPLOUT
                ASSIGN TO SUPPLOUT
                ORGANIZATION IS SEQUENTIAL
                FILE STATUS IS SUPPLOUT-ST.
-
+      
            SELECT SUPADROUT
                ASSIGN TO SUPADOUT
                ORGANIZATION IS SEQUENTIAL
                FILE STATUS IS SUPADROUT-ST.
-
+      
            SELECT PORDOUT
                ASSIGN TO PORDOUT
                ORGANIZATION IS SEQUENTIAL
                FILE STATUS IS PORDOUT-ST.
-
+      
            SELECT ERRORFILE
              ASSIGN TO ERRORRPT
                ORGANIZATION IS SEQUENTIAL
                FILE STATUS IS ERRORFILE-ST.
-
+      
            SELECT PRINTFILE
              ASSIGN TO PRINTRPT
                ORGANIZATION IS SEQUENTIAL
                FILE STATUS IS PRINTFILE-ST.
-
-
+      
+      
        DATA DIVISION.
        FILE SECTION.
        FD  PARTFILE
            RECORDING MODE IS F
            RECORD CONTAINS 473 CHARACTERS.
            COPY PARTSREC.
-
+      
+       FD  ZIPFILE
+           RECORDING MODE IS F
+           RECORD CONTAINS 33 CHARACTERS.
+       01  ZIP-RECORD               PIC X(33).
+      
        FD  PARTOUT
            RECORDING MODE IS F
            RECORD CONTAINS 67 CHARACTERS.
@@ -79,7 +89,7 @@
            05  VEHICLE-MAKE-O      PIC X(03) VALUE SPACES.
            05  VEHICLE-MODEL-O     PIC X(05) VALUE SPACES.
            05  VEHICLE-YEAR-O      PIC X(04) VALUE '0000'.
-
+      
        FD  SUPPLOUT
            RECORDING MODE IS F
            RECORD CONTAINS 33 CHARACTERS.
@@ -91,7 +101,7 @@
                05  SUPPLIER-RATING-O   PIC X(01) VALUE SPACES.
                05  SUPPLIER-STATUS-O   PIC X(01) VALUE SPACES.
                05  SUPPLIER-ACT-DATE-O PIC X(08) VALUE ZERO.
-
+      
        FD  SUPADROUT
            RECORDING MODE IS F
            RECORD CONTAINS 68 CHARACTERS.
@@ -103,7 +113,7 @@
                05 CITY-O              PIC X(15) VALUE SPACES.
                05 ADDR-STATE-O        PIC X(02) VALUE SPACES.
                05 ZIP-CODE-O          PIC X(05) VALUE ZERO.
-
+      
        FD  PORDOUT
            RECORDING MODE IS F
            RECORD CONTAINS 34 CHARACTERS.
@@ -114,47 +124,50 @@
                05  UNIT-PRICE-O        PIC S9(7)V99 COMP-3 VALUE ZERO.
                05  ORDER-DATE-O        PIC x(08) VALUE ZERO.
                05  DELIVERY-DATE-O     PIC x(08) VALUE ZERO.
-
+      
        FD  ERRORFILE
            RECORDING MODE IS F
            RECORD CONTAINS 623 CHARACTERS.
-       01  ERROR-FILE.
-           05 ERROR-LINE                 PIC X(473)     VALUE SPACES.
+        01  ERROR-FILE.
            05 ERROR-MSG-1                PIC X(50)      VALUE SPACES.
            05 ERROR-MSG-2                PIC X(50)      VALUE SPACES.
            05 ERROR-MSG-3                PIC X(50)      VALUE SPACES.
-
-
+           05 ERROR-LINE                 PIC X(473)     VALUE SPACES.
+      
+      
        FD  PRINTFILE
            RECORDING MODE IS F
            RECORD CONTAINS 132 CHARACTERS.
        01  PRINT-LINE                    PIC X(132).
-
+      
        WORKING-STORAGE SECTION.
        77  WS-STORAGE-IND                PIC X(60)
                      VALUE     'WORKING STORAGE BEGINS HERE'.
-
-
+      
+      
        01  PROGRAM-SWITCHES.
            05 PARTFILE-EOF             PIC X(1)       VALUE 'N'.
                88 NO-MORE-PARTS                       VALUE 'Y'.
-
            05 PARTFILE-ST              PIC X(2).
                88 PARTFILE-OK                         VALUE '00'.
-           05 PARTOUT-ST              PIC X(2).
+           05 ZIPFILE-EOF             PIC X(1)        VALUE 'N'.
+               88 NO-MORE-ZIPS                        VALUE 'Y'.
+           05 ZIPFILE-ST               PIC X(2).
+               88 ZIPFILE-OK                         VALUE '00'.
+           05 PARTOUT-ST               PIC X(2).
                88 PARTOUT-OK                          VALUE '00'.
            05 SUPPLOUT-ST              PIC X(2).
                88 SUPPLOUT-OK                         VALUE '00'.
-           05 SUPADROUT-ST              PIC X(2).
+           05 SUPADROUT-ST             PIC X(2).
                88 SUPADROUT-OK                        VALUE '00'.
-           05 PORDOUT-ST              PIC X(2).
+           05 PORDOUT-ST               PIC X(2).
                88 PORDOUT-OK                          VALUE '00'.
-           05 ERRORFILE-ST              PIC X(2).
+           05 ERRORFILE-ST             PIC X(2).
                88 ERRORFILE-OK                        VALUE '00'.
-           05 PRINTFILE-ST              PIC X(2).
+           05 PRINTFILE-ST             PIC X(2).
                88 PRINTFILE-OK                        VALUE '00'.
-           05 WS-RC                     PIC 9         VALUE 0.
-
+           05 WS-RC                    PIC 9         VALUE 0.
+      
        01  COUNTERS-AND-ACCUMULATORS-WS.
            05 ERROR-COUNTER              PIC 9(2).
            05 PO-NUM-COUNTER             PIC 9(3)     VALUE ZEROS.
@@ -163,11 +176,11 @@
            05 TOT-PO-NUM-COUNTER         PIC 9(3)     VALUE ZEROS.
            05 TOT-PO-QUAN-COUNTER        PIC 9(9)     VALUE ZEROS.
            05 TOT-PO-PRICE-COUNTER       PIC 9(10)V99  VALUE ZEROS.
-
+      
            05 VALID-RECORD-FLAG         PIC X           VALUE 'N'.
                88 RECORD-IS-VALID                       VALUE 'Y'.
-
-
+      
+      
        01  DATE-FIELDS-WS.
            05 CURR-DATE-OUT             PIC X(10).
            05 CURR-DATE-WS              PIC S9(8).
@@ -175,15 +188,15 @@
                10 WS-YEAR               PIC X(4).
                10 WS-MONTH              PIC X(2).
                10 WS-DAY                PIC X(2).
-
+      
        01  REPORT-FIELDS.
            05 LINE-COUNT                PIC S9(2)       VALUE +6.
            05 PAGE-COUNT                PIC S9(2)        VALUE ZEROS.
            05 LINES-PER-PAGE            PIC S9(2)       VALUE +5.
-
+      
        01  WS-FIELDS.
            05 WS-ZIP-CODE               PIC X(19)       VALUE SPACES.
-
+      
        01  HEADING-LINE-ONE.
            05 HDG-DATE                  PIC XXXX/XX/XX.
            05 FILLER                    PIC X(40)      VALUE SPACES.
@@ -196,7 +209,7 @@
            05 FILLER                    PIC X(5)       VALUE 'Page '.
            05 HDG-PAGE-NUMBER           PIC ZZ9.
            05 FILLER                    PIC X(3)       VALUE SPACES.
-
+      
        01  HEADING-LINE-TWO.
            05 FILLER                    PIC X(25)
                 VALUE ' PART NAME'.
@@ -208,7 +221,7 @@
                 VALUE 'SUPPLIER NAME'.
            05 FILLER                    PIC X(20)
                 VALUE 'SUPPLIER RATING'.
-
+      
        01 HEADING-LINE-FOUR.
            05 FILLER                    PIC X(20)      VALUE ALL '-'.
            05 FILLER                    PIC X(05)      VALUE SPACE.
@@ -219,7 +232,7 @@
            05 FILLER                    PIC X(15)      VALUE ALL '-'.
            05 FILLER                    PIC X(05)      VALUE SPACE.
            05 FILLER                    PIC X(15)      VALUE ALL '-'.
-
+      
        01 DETAIL-LINE.
            05 DET-PART-NAME             PIC X(20)      VALUE SPACES.
            05 FILLER                    PIC X(8)       VALUE SPACES.
@@ -230,7 +243,7 @@
            05 DET-SUPPLIER-NAME         PIC X(15).
            05 FILLER                    PIC X(5)       VALUE SPACES.
            05 DET-SUPPLIER-RATING       PIC X(15).
-
+      
        01  ADDRESS-LINE-OUT.
            05 ADDRESS-TYPE-OUT          PIC X(15).
            05 ADDRESS-OUT-1             PIC X(15).
@@ -244,8 +257,8 @@
            05 ADDRESS-STATE             PIC X(2).
            05 FILLER                    PIC X           VALUE SPACES.
            05 ADDRESS-ZIP               PIC X(15).
-
-
+      
+      
        01  C-ADDRESS-TYPES.
            05 C-ADDRESS-OUT-1               PIC X(15)
                 VALUE 'Order Address: '.
@@ -253,46 +266,60 @@
                 VALUE 'Sched Address: '.
            05 C-ADDRESS-OUT-3               PIC X(15)
                 VALUE 'Remit Address: '.
-
-
+      
+      
        01  TOTAL-LINE-OUT-1.
            05 FILLER                      PIC X(25)
                 VALUE 'Total # Purchase Orders: '.
            05 FILLER                      PIC X(15)      VALUE SPACES.
            05 TOT-NUM-PO                  PIC ZZZ,ZZ9.
-
+      
        01  TOTAL-LINE-OUT-2.
            05 FILLER                      PIC X(38)
                 VALUE 'Total Quantity In Purchase Orders:    '.
            05 TOT-QUAN-PO                 PIC Z,ZZZ,ZZ9.
-
+      
        01  TOTAL-LINE-OUT-3.
            05 FILLER                      PIC X(34)
                 VALUE 'Total Price In Purchase Orders:   '.
            05 TOT-PRICE-PO                PIC $$,$$$,$$9.99.
-
-
+      
+       01  ZIP-CODE-TABLE.
+           05 ZIP-CODE-ENTRIES OCCURS 72 TIMES
+                            ASCENDING KEY IS ST-NAME
+                            INDEXED BY ZIP-IDX.
+           10 STATE-NAME            PIC X(14)   VALUE SPACES.
+           10 FILLER                PIC X(02)   VALUE SPACES.
+           10 ST-NAME               PIC X(02)   VALUE SPACES.
+           10 FILLER                PIC X(02)   VALUE SPACES.
+           10 ZIP-LOW               PIC X(05)   VALUE SPACES.
+           10 FILLER                PIC X(03)   VALUE SPACES.
+           10 ZIP-HIGH              PIC X(05)   VALUE SPACES.
+      
+       01  ZIP-TABLE-MAX         PIC S9(4) COMP VALUE 73.
+      
+      
        01  WS-ERROR-PART.
            05 ERROR-PART-DETAIL OCCURS 20 TIMES INDEXED BY PRT-IDX.
                 10 ERR-PART-MSG                  PIC X(50).
-
+      
        01  WS-ERROR-SUPPLIER.
            05 ERROR-SUPP-DETAIL OCCURS 20 TIMES INDEXED BY SUP-IDX.
                 10 ERR-SUPP-MSG                  PIC X(50).
-
+      
        01  WS-ERROR-SADDR.
            05 ERROR-SADDR-DETAIL OCCURS 20 TIMES INDEXED BY SADDR-IDX.
                 10 ERR-SADDR-MSG                 PIC X(50).
-
+      
        01  WS-ERROR-PO.
            05 ERROR-PO-DETAIL OCCURS 20 TIMES INDEXED BY PORD-IDX.
                 10 ERR-PO-MSG                    PIC X(50).
-
+      
        01  WS-ERROR-MESSAGES.
            05 WS-ERR-MESSAGES OCCURS 3 TIMES INDEXED BY ERR-IDX.
                 10 WS-ERROR-MESSAGE              PIC X(50).
-
-
+      
+      
        01 FILLER                        PIC X(12)
                          VALUE 'WS ENDS HERE'.
       *
@@ -303,7 +330,7 @@
            PERFORM 850-WRITE-REPORT-TOTALS.
            PERFORM 900-WRAP-UP.
            GOBACK.
-
+      
        100-HOUSEKEEPING.
       * INITIALIZATION ROUTINE
            INITIALIZE COUNTERS-AND-ACCUMULATORS-WS,
@@ -315,8 +342,15 @@
                       WS-ERROR-MESSAGES.
            MOVE FUNCTION CURRENT-DATE TO HDG-DATE.
            PERFORM 300-OPEN-FILES.
-           PERFORM 400-READ-PARTS.
-
+           PERFORM 400-READ-ZIP-FILE.
+           PERFORM VARYING ZIP-IDX FROM 1 BY 1
+                UNTIL ZIP-IDX = ZIP-TABLE-MAX       *> Load Zip Table
+                    OR NO-MORE-ZIPS
+              PERFORM 410-LOAD-ZIP-TABLE
+           END-PERFORM.
+           DISPLAY SPACES.
+           PERFORM 450-READ-PARTS.
+      
        200-PROCESS-PARTS.
            DISPLAY PARTS.
            DISPLAY SUPPLIERS.
@@ -328,11 +362,14 @@
                 UNTIL PO-IDX > 3
            DISPLAY PURCHASE-ORDER(PO-IDX)
            END-PERFORM.
-
+      
            INITIALIZE WS-ERROR-MESSAGES.
+           SET ERR-IDX TO 1.
+           INITIALIZE ERROR-FILE.
+      
            MOVE 'Y' TO VALID-RECORD-FLAG.
            MOVE 0 TO ERROR-COUNTER.
-
+      
       *    VALIDATE INPUT RECORDS
            PERFORM 210-VALIDATE-PARTS.
            IF ERROR-COUNTER > 3
@@ -342,18 +379,26 @@
                 IF ERROR-COUNTER > 3
                    PERFORM 250-PROCESS-INVALID-RECORD
                 ELSE
-      *            PERFORM 230-VALIDATE-SUPP-ADDRESS
+                  PERFORM VARYING ADDR-IDX FROM 1 BY 1
+                        UNTIL ADDR-IDX > 3 OR
+                            ERROR-COUNTER > 3
+                    PERFORM 230-VALIDATE-SUPP-ADDRESS
+                  END-PERFORM
                   IF ERROR-COUNTER > 3
-                     PERFORM 250-PROCESS-INVALID-RECORD
+                       PERFORM 250-PROCESS-INVALID-RECORD
                   ELSE
-      *               PERFORM 240-VALIDATE-PURCHASE-ORDERS
-                     IF ERROR-COUNTER > 3
-                        PERFORM 250-PROCESS-INVALID-RECORD
+                     PERFORM VARYING PO-IDX FROM 1 BY 1
+                            UNTIL PO-IDX > 3 OR
+                                ERROR-COUNTER > 3
+                       PERFORM 240-VALIDATE-PURCHASE-ORDERS
+                     END-PERFORM
+                       IF ERROR-COUNTER > 3
+                          PERFORM 250-PROCESS-INVALID-RECORD
                      END-IF
                   END-IF
                 END-IF
            END-IF.
-
+      
       *    WRITE THE ERRORS OR VALID RECORDS AND REPORT
            IF ERROR-COUNTER > 0 AND ERROR-COUNTER < 4
                 PERFORM 260-PROCESS-ERRORS
@@ -364,129 +409,114 @@
                     NEXT SENTENCE
                 END-IF
            END-IF.
-
-           PERFORM 400-READ-PARTS.
-
+      
+           PERFORM 450-READ-PARTS.
+      
       *==============================================================
-
+      
       *    VALIDATE PARTS FIELDS
        210-VALIDATE-PARTS.
            CALL 'PARTEDIT' USING
                     PARTS, WS-RC, WS-ERROR-PART.
            IF WS-RC = 8
+                IF ERR-IDX = 4
+                    ADD 1 to ERROR-COUNTER
+                END-IF
                 PERFORM VARYING PRT-IDX FROM 1 BY 1
                     UNTIL ERR-PART-MSG(PRT-IDX) = SPACES
-                        OR PRT-IDX > 20
+                         OR ERR-IDX = 4
+      
                     DISPLAY ERR-PART-MSG(PRT-IDX)
+                    MOVE ERR-PART-MSG(PRT-IDX) TO
+                            WS-ERROR-MESSAGE(ERR-IDX)
+                    SET ERR-IDX UP BY 1
                     ADD   1  TO ERROR-COUNTER
                  END-PERFORM
                  MOVE 'N' TO VALID-RECORD-FLAG
            END-IF.
-
+      
       *    VALIDATE SUPPLIER FIELDS
        220-VALIDATE-SUPPLIERS.
            CALL 'SUPPEDIT' USING
                     SUPPLIERS, WS-RC, WS-ERROR-SUPPLIER.
            IF WS-RC = 8
+                IF ERR-IDX = 4
+                    ADD 1 to ERROR-COUNTER
+                END-IF
                 PERFORM VARYING SUP-IDX FROM 1 BY 1
                     UNTIL ERR-SUPP-MSG(SUP-IDX) = SPACES
-                        OR SUP-IDX > 20
+                         OR ERR-IDX = 4
+      
                     DISPLAY ERR-SUPP-MSG(SUP-IDX)
+                    MOVE ERR-SUPP-MSG(SUP-IDX) TO
+                            WS-ERROR-MESSAGE(ERR-IDX)
+                    SET ERR-IDX UP BY 1
                     ADD 1 to ERROR-COUNTER
                 END-PERFORM
-           MOVE 'N' TO VALID-RECORD-FLAG
+                MOVE 'N' TO VALID-RECORD-FLAG
            END-IF.
-
+      
       *    VALIDATE SUPPLIER ADDRESS FIELDS
-      *230-VALIDATE-SUPP-ADDRESS.
-      *    CALL 'SUADEDIT' USING
-      *             SUPP-ADDRESS, WS-RC, WS-ERROR-SUPPADDR.
-      *    IF WS-RC = 8
-      *         PERFORM VARYING SADDR-IDX FROM 1 BY 1
-      *             UNTIL ERR-SADDR-MSG(SADDR-IDX) = SPACES
-      *                 OR SADDR-IDX > 20
-      *             DISPLAY ERR-SADDR-MSG(SADDR-IDX)
-      *             ADD 1 to ERROR-COUNTER
-      *             MOVE 'N' TO VALID-RECORD-FLAG
-      *         END-PERFORM
-      *    END-IF.
-
+       230-VALIDATE-SUPP-ADDRESS.
+           CALL 'SADREDIT' USING
+                    SUPP-ADDRESS(ADDR-IDX), WS-RC, WS-ERROR-SADDR,
+                    ZIP-CODE-TABLE.
+           IF WS-RC = 8
+                IF ERR-IDX = 4
+                    ADD 1 to ERROR-COUNTER
+                END-IF
+                PERFORM VARYING SADDR-IDX FROM 1 BY 1
+                    UNTIL ERR-SADDR-MSG(SADDR-IDX) = SPACES
+                         OR ERR-IDX = 4
+      
+                    DISPLAY ERR-SADDR-MSG(SADDR-IDX)
+                    MOVE ERR-SADDR-MSG(SADDR-IDX) TO
+                            WS-ERROR-MESSAGE(ERR-IDX)
+                    SET ERR-IDX UP BY 1
+                    ADD 1 to ERROR-COUNTER
+                END-PERFORM
+                MOVE 'N' TO VALID-RECORD-FLAG
+           END-IF.
+      
       *    VALIDATE PURCHASE ORDER FIELDS
-      *240-VALIDATE-PURCHASE-ORDERS.
-      *    CALL 'PUOREDIT' USING
-      *             PURCHASE-ORDER, WS-RC, WS-ERROR-PO.
-      *    IF WS-RC = 8
-      *         PERFORM VARYING PORD-IDX FROM 1 BY 1
-      *             UNTIL ERR-PO-MSG(PORD-IDX) = SPACES
-      *                 OR PORD-IDX > 20
-      *             DISPLAY ERR-PO-MSG(PORD-IDX)
-      *             ADD 1 to ERROR-COUNTER
-      *             MOVE 'N' TO VALID-RECORD-FLAG
-      *         END-PERFORM
-      *    END-IF.
-
+       240-VALIDATE-PURCHASE-ORDERS.
+           CALL 'PORDEDIT' USING
+                    PURCHASE-ORDER(PO-IDX), WS-RC, WS-ERROR-PO.
+           IF WS-RC = 8
+                IF ERR-IDX = 4
+                    ADD 1 to ERROR-COUNTER
+                END-IF
+                PERFORM VARYING PORD-IDX FROM 1 BY 1
+                    UNTIL ERR-PO-MSG(PORD-IDX) = SPACES
+                           OR ERR-IDX = 4
+      
+                    DISPLAY ERR-PO-MSG(PORD-IDX)
+                    MOVE ERR-PO-MSG(PORD-IDX) TO
+                            WS-ERROR-MESSAGE(ERR-IDX)
+                    ADD 1 to ERROR-COUNTER
+                END-PERFORM
+                MOVE 'N' TO VALID-RECORD-FLAG
+           END-IF.
+      
       *==============================================================
-
+      
       *    PROCESS INVALID RECORDS
        250-PROCESS-INVALID-RECORD.
-           INITIALIZE ERROR-FILE.
-
+      
            MOVE PART-SUPP-ADDR-PO TO ERROR-LINE.
-
-           SET ERR-IDX TO 1.
+      
            MOVE " *** RECORD IS COMPLETELY INVALID ***"
                        TO ERROR-MSG-1.
-
+           MOVE SPACES TO ERROR-MSG-2, ERROR-MSG-3.
+      
            WRITE ERROR-FILE.
-
+           DISPLAY " ********* RECORD IS COMPLETELY INVALID **********"
+           DISPLAY SPACES.
+      
       *    PROCESS ERRORS FOUND
        260-PROCESS-ERRORS.
-           INITIALIZE ERROR-FILE.
-
            MOVE PART-SUPP-ADDR-PO TO ERROR-LINE.
-
-           SET ERR-IDX TO 1.
-           PERFORM VARYING PRT-IDX FROM 1 BY 1
-                UNTIL ERR-PART-MSG(PRT-IDX) = SPACES
-                    OR ERR-IDX > 3
-                MOVE ERR-PART-MSG(PRT-IDX) TO WS-ERROR-MESSAGE(ERR-IDX)
-                SET ERR-IDX UP BY 1
-           END-PERFORM.
-
-           IF ERR-IDX = 4
-                NEXT SENTENCE
-           ELSE
-                PERFORM VARYING SUP-IDX FROM 1 BY 1
-                    UNTIL ERR-SUPP-MSG(SUP-IDX) = SPACES
-                            OR ERR-IDX > 3
-                    MOVE ERR-SUPP-MSG(SUP-IDX)
-                            TO WS-ERROR-MESSAGE(ERR-IDX)
-                    SET ERR-IDX UP BY 1
-                END-PERFORM
-                IF ERR-IDX = 4
-                    NEXT SENTENCE
-                ELSE
-                    PERFORM VARYING SADDR-IDX FROM 1 BY 1
-                        UNTIL ERR-SADDR-MSG(SADDR-IDX) = SPACES
-                                OR ERR-IDX > 3
-                        MOVE ERR-SADDR-MSG(SADDR-IDX)
-                                    TO WS-ERROR-MESSAGE(ERR-IDX)
-                        SET ERR-IDX UP BY 1
-                    END-PERFORM
-                    IF ERR-IDX = 4
-                        NEXT SENTENCE
-                    ELSE
-                        PERFORM VARYING PORD-IDX FROM 1 BY 1
-                            UNTIL ERR-PO-MSG(PORD-IDX) = SPACES
-                                    OR ERR-IDX > 3
-                            MOVE ERR-PO-MSG(PORD-IDX) TO
-                                WS-ERROR-MESSAGE(ERR-IDX)
-                        SET ERR-IDX UP BY 1
-                    END-PERFORM
-                    END-IF
-                END-IF
-           END-IF.
-
+      
            PERFORM VARYING ERR-IDX FROM 1 BY 1 UNTIL ERR-IDX > 3
                 IF ERR-IDX = 1
                     MOVE WS-ERROR-MESSAGE(ERR-IDX) TO ERROR-MSG-1
@@ -500,17 +530,20 @@
                     END-IF
                 END-IF
            END-PERFORM.
-
+      
            WRITE ERROR-FILE.
-
-
+           DISPLAY SPACES.
+      
+      
       *    PROCESS VALID RECORDS AND WRITE REPORTS
        270-PROCESS-VALID-RECORD.
            PERFORM 272-WRITE-PART.
            PERFORM 274-WRITE-SUPPLIER.
            PERFORM 276-WRITE-SUP-ADDRESS.
            PERFORM 278-WRITE-PO.
-
+           DISPLAY " ************* THIS IS A GOOD RECORD  ***********".
+           DISPLAY SPACES.
+      
        272-WRITE-PART.
            MOVE PART-NUMBER             TO PART-NUMBER-O.
            MOVE PART-NAME               TO PART-NAME-O,
@@ -524,9 +557,9 @@
            MOVE VEHICLE-MAKE            TO VEHICLE-MAKE-O.
            MOVE VEHICLE-MODEL(1:5)      TO VEHICLE-MODEL-O.
            MOVE VEHICLE-YEAR            TO VEHICLE-YEAR-O.
-
+      
            WRITE PARTS-O.
-
+      
            EVALUATE VEHICLE-MAKE
                 WHEN 'CHR'
                     MOVE 'CHRYSLER'     TO DET-VEHICLE-MAKE
@@ -543,7 +576,7 @@
                 WHEN OTHER
                     MOVE VEHICLE-MAKE   TO DET-VEHICLE-MAKE
            END-EVALUATE.
-
+      
        274-WRITE-SUPPLIER.
            MOVE SUPPLIER-CODE(1:5)      TO SUPPLIER-CODE-O.
            MOVE SUPPLIER-TYPE           TO SUPPLIER-TYPE-O.
@@ -553,9 +586,9 @@
            MOVE SUPPLIER-RATING         TO SUPPLIER-RATING-O.
            MOVE SUPPLIER-STATUS         TO SUPPLIER-STATUS-O.
            MOVE SUPPLIER-ACT-DATE       TO SUPPLIER-ACT-DATE-O.
-
+      
            WRITE SUPPLIERS-O.
-
+      
            EVALUATE SUPPLIER-RATING
                 WHEN '1'
                     MOVE 'LOWEST-QUALITY'     TO DET-SUPPLIER-RATING
@@ -564,11 +597,11 @@
                 WHEN '3'
                     MOVE 'HIGHEST-QUALITY'     TO DET-SUPPLIER-RATING
            END-EVALUATE.
-
+      
            PERFORM 820-WRITE-DETAIL-LINE.
-
+      
        276-WRITE-SUP-ADDRESS.
-
+      
            PERFORM VARYING ADDR-IDX FROM 1 BY 1
                 UNTIL ADDR-IDX > 3
                 MOVE ADDRESS-TYPE(ADDR-IDX) TO ADDRESS-TYPE-O
@@ -579,9 +612,9 @@
                 MOVE ADDR-STATE(ADDR-IDX)   TO ADDR-STATE-O
                 MOVE ZIP-CODE(ADDR-IDX)     TO WS-ZIP-CODE
                 MOVE WS-ZIP-CODE(1:5)       TO ZIP-CODE-O
-
+      
                 WRITE SUPP-ADDRESS-O
-
+      
                 IF ADDR-IDX = 1
                     MOVE C-ADDRESS-OUT-1        TO ADDRESS-TYPE-OUT
                 END-IF
@@ -591,7 +624,7 @@
                 IF ADDR-IDX = 3
                     MOVE C-ADDRESS-OUT-3        TO ADDRESS-TYPE-OUT
                 END-IF
-
+      
                 MOVE ADDRESS-1(ADDR-IDX)    TO ADDRESS-OUT-1
                 MOVE ADDRESS-2(ADDR-IDX)    TO ADDRESS-OUT-2
                 MOVE ADDRESS-3(ADDR-IDX)    TO ADDRESS-OUT-3
@@ -599,19 +632,19 @@
                 MOVE ADDR-STATE(ADDR-IDX)   TO ADDRESS-STATE
                 MOVE WS-ZIP-CODE(1:5)       TO ADDRESS-ZIP
                 PERFORM 830-WRITE-ADDRESS-DETAIL-LINE
-
+      
            END-PERFORM.
-
+      
            MOVE SPACES TO ADDRESS-LINE-OUT.
            PERFORM 830-WRITE-ADDRESS-DETAIL-LINE.
-
-
+      
+      
        278-WRITE-PO.
            MOVE ZERO TO PO-NUM-COUNTER,
                         PO-QUAN-COUNTER, PO-PRICE-COUNTER.
-
+      
            ADD 3 TO TOT-PO-NUM-COUNTER, PO-NUM-COUNTER.
-
+      
            PERFORM VARYING PO-IDX FROM 1 BY 1
                 UNTIL PO-IDX > 3
                 MOVE PO-NUMBER(PO-IDX)      TO PO-NUMBER-O
@@ -620,9 +653,9 @@
                 MOVE UNIT-PRICE(PO-IDX)     TO UNIT-PRICE-O
                 MOVE ORDER-DATE(PO-IDX)     TO ORDER-DATE-O
                 MOVE DELIVERY-DATE(PO-IDX)  TO DELIVERY-DATE-O
-
+      
                 WRITE PURCHASE-ORDER-O
-
+      
                 COMPUTE PO-QUAN-COUNTER =
                         PO-QUAN-COUNTER + QUANTITY(PO-IDX)
                 COMPUTE TOT-PO-QUAN-COUNTER =
@@ -632,7 +665,7 @@
                 COMPUTE TOT-PO-PRICE-COUNTER = TOT-PO-PRICE-COUNTER +
                         (QUANTITY(PO-IDX) * UNIT-PRICE(PO-IDX))
            END-PERFORM.
-
+      
            MOVE PO-NUM-COUNTER         TO TOT-NUM-PO
            WRITE PRINT-LINE FROM TOTAL-LINE-OUT-1
            ADD 1 TO LINE-COUNT.
@@ -645,48 +678,69 @@
            MOVE SPACES TO PRINT-LINE
            ADD 1 TO LINE-COUNT.
            WRITE PRINT-LINE.
-
-
-
+      
       *==============================================================
-
+      
        300-OPEN-FILES.
            OPEN INPUT PARTFILE
            IF NOT PARTFILE-OK
               DISPLAY 'PARTS FILE OPEN PROBLEM'
               GO TO 999-ERROR-RTN.
-
+      
+           OPEN INPUT ZIPFILE
+           IF NOT ZIPFILE-OK
+              DISPLAY 'ZIP CODE FILE OPEN PROBLEM'
+              GO TO 999-ERROR-RTN.
+      
            OPEN OUTPUT PARTOUT
            IF NOT PARTOUT-OK
               DISPLAY 'PARTS OUT FILE OPEN PROBLEM'
               GO TO 999-ERROR-RTN.
-
+      
            OPEN OUTPUT SUPPLOUT
            IF NOT SUPPLOUT-OK
               DISPLAY 'SUPPLIER OUT FILE OPEN PROBLEM'
               GO TO 999-ERROR-RTN.
-
+      
            OPEN OUTPUT SUPADROUT
            IF NOT SUPADROUT-OK
               DISPLAY 'SUPPLIER ADDRESS FILE OPEN PROBLEM'
               GO TO 999-ERROR-RTN.
-
+      
            OPEN OUTPUT PORDOUT
            IF NOT PORDOUT-OK
               DISPLAY 'PURCHASE ORDER FILE OPEN PROBLEM'
               GO TO 999-ERROR-RTN.
-
+      
            OPEN OUTPUT ERRORFILE
            IF NOT ERRORFILE-OK
               DISPLAY 'ERROR FILE OPEN PROBLEM'
               GO TO 999-ERROR-RTN.
-
+      
            OPEN OUTPUT PRINTFILE
            IF NOT PRINTFILE-OK
               DISPLAY 'PRINT REPORT OPEN PROBLEM'
               GO TO 999-ERROR-RTN.
-
-       400-READ-PARTS.
+      
+       400-READ-ZIP-FILE.
+           READ ZIPFILE
+           AT END
+              MOVE "Y" TO ZIPFILE-EOF
+           END-READ.
+           IF ZIPFILE-OK OR NO-MORE-ZIPS
+                NEXT SENTENCE
+           ELSE
+              DISPLAY 'ZIP CODE FILE READ PROBLEM'
+              GO TO 999-ERROR-RTN
+           END-IF.
+      
+       410-LOAD-ZIP-TABLE.
+           DISPLAY ZIP-RECORD.
+           MOVE ZIP-RECORD TO ZIP-CODE-ENTRIES(ZIP-IDX).
+           PERFORM 400-READ-ZIP-FILE.
+      
+      
+       450-READ-PARTS.
            READ PARTFILE
            AT END
               MOVE "Y" TO PARTFILE-EOF
@@ -697,13 +751,13 @@
               DISPLAY 'PARTS FILE READ PROBLEM'
               GO TO 999-ERROR-RTN
            END-IF.
-
+      
        900-WRAP-UP.
            CLOSE PARTFILE, SUPPLOUT, SUPADROUT, PORDOUT,
                  ERRORFILE, PRINTFILE.
        999-ERROR-RTN.
            GOBACK.
-
+      
        800-WRITE-HEADER-LINES.
            MOVE +1          TO LINE-COUNT.
            ADD  +1          TO PAGE-COUNT.
@@ -713,21 +767,21 @@
            WRITE PRINT-LINE.
            WRITE PRINT-LINE FROM HEADING-LINE-TWO.
            WRITE PRINT-LINE FROM HEADING-LINE-FOUR.
-
-
+      
+      
        820-WRITE-DETAIL-LINE.
            IF LINE-COUNT > 40
                 PERFORM 800-WRITE-HEADER-LINES.
-
+      
            WRITE PRINT-LINE FROM DETAIL-LINE
            MOVE SPACES      TO PRINT-LINE.
            WRITE PRINT-LINE.
            ADD 2 TO LINE-COUNT.
-
+      
        830-WRITE-ADDRESS-DETAIL-LINE.
            WRITE PRINT-LINE FROM ADDRESS-LINE-OUT
            ADD 1 TO LINE-COUNT.
-
+      
        850-WRITE-REPORT-TOTALS.
            IF TOT-PO-NUM-COUNTER = 0
                 MOVE SPACES TO PRINT-LINE
@@ -759,5 +813,6 @@
                    TO PRINT-LINE
                 WRITE PRINT-LINE
            END-IF.
+         
 
 
