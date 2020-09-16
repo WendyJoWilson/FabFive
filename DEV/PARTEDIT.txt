@@ -59,56 +59,55 @@ IDENTIFICATION DIVISION.
            05  LS-VEHICLE-YEAR      PIC X(04) VALUE '0000'.
                 88 VALID-YEAR       VALUE '1990' THRU '2019'.
            05  FILLER               PIC X(14) VALUE SPACES.
- 
+      
        01  LS-RC                                PIC 9.
- 
+      
        01  LS-ERROR-PART.
            05 LS-ERROR-PART-DETAIL
                     OCCURS 20 TIMES INDEXED BY LS-ERR-IDX.
                 10 LS-ERR-MSG                   PIC X(50).
- 
       *****************************************************************
- 
-       PROCEDURE DIVISION USING LS-PARTS, LS-RC LS-ERROR-PART.
+       PROCEDURE DIVISION USING LS-PARTS, LS-RC, LS-ERROR-PART.
            INITIALIZE LS-ERROR-PART, LS-RC.
            PERFORM 200-VALIDATE-PARTS.
            PERFORM 300-RETURN-TO-CALLING-PGM.
            GOBACK.
- 
+      
        200-VALIDATE-PARTS.
+      
            SET LS-ERR-IDX TO 1.
            IF LS-PART-NUMBER = SPACE
-              MOVE '*** PART NUMBER CANNOT BE BLANK'
+              MOVE '***PART NUMBER CANNOT BE BLANK'
                                   TO LS-ERR-MSG(LS-ERR-IDX)
               SET LS-ERR-IDX UP BY 1.
            IF LS-PART-NAME = SPACE
-              MOVE '*** PART NAME CANNOT BE BLANK'
+              MOVE '***PART NAME CANNOT BE BLANK'
                                   TO LS-ERR-MSG(LS-ERR-IDX)
               SET LS-ERR-IDX UP BY 1.
            IF LS-VEHICLE-MAKE = SPACE
-              MOVE '*** VEHICLE MAKE CANNOT BE BLANK'
+              MOVE '***VEHICLE MAKE CANNOT BE BLANK'
                                   TO LS-ERR-MSG(LS-ERR-IDX)
               SET LS-ERR-IDX UP BY 1.
            IF LS-VEHICLE-MODEL = SPACE
-              MOVE '*** VEHICLE MODEL CANNOT BE BLANK'
+              MOVE '***VEHICLE MODEL CANNOT BE BLANK'
                                   TO LS-ERR-MSG(LS-ERR-IDX)
               SET LS-ERR-IDX UP BY 1.
            IF LS-VEHICLE-YEAR = SPACE
-              MOVE '*** VEHICLE YEAR CANNOT BE BLANK'
+              MOVE '***VEHICLE YEAR CANNOT BE BLANK'
                                   TO LS-ERR-MSG(LS-ERR-IDX)
               SET LS-ERR-IDX UP BY 1.
            IF VALID-MAKE
               NEXT SENTENCE
            ELSE
               MOVE
-              '*** VEHICLE MAKE NOT CHR FOR GM VW TOY JAG PEU BMW'
+              '***VEHICLE MAKE NOT CHR FOR GM VW TOY JAG PEU BMW '
                                   TO LS-ERR-MSG(LS-ERR-IDX)
               SET LS-ERR-IDX UP BY 1
            END-IF.
            IF VALID-YEAR
               NEXT SENTENCE
            ELSE
-              MOVE '*** VEHICLE YEAR MUST BE BETWEEN 1990 AND 2019'
+               MOVE '***VEHICLE YEAR MUST BE BETWEEN 1990 AND 2019'
                                   TO LS-ERR-MSG(LS-ERR-IDX)
               SET LS-ERR-IDX UP BY 1
            END-IF.
@@ -117,10 +116,16 @@ IDENTIFICATION DIVISION.
                     NEXT SENTENCE
                 ELSE
                     MOVE
-                  '*** WEEKS LEAD TIME MUST BE NUMERIC BTWN 1 AND 4'
+                  '***WEEKS LEAD TIME MUST BE NUMERIC BTWN 1 AND 4'
                                     TO LS-ERR-MSG(LS-ERR-IDX)
-                  END-IF.
- 
+                END-IF
+           ELSE
+                    MOVE
+                  '***WEEKS LEAD TIME MUST BE NUMERIC BTWN 1 AND 4'
+                                    TO LS-ERR-MSG(LS-ERR-IDX)
+           END-IF
+           .
+      
        300-RETURN-TO-CALLING-PGM.
            IF LS-ERR-MSG(1) = SPACES
               MOVE 0 TO LS-RC
