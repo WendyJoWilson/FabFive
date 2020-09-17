@@ -1,5 +1,5 @@
       IDENTIFICATION DIVISION.
-      PROGRAM-ID. PERRCRD.
+      PROGRAM-ID. ERRFREE.
       AUTHOR.  FabFive.
       *****************************************************************
       *****  THIS PROGRAM CREATES RECORDS 
