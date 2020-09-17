@@ -1,0 +1,162 @@
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID.      SUPPEDIT.
+       AUTHOR.          FABFIVE.
+      
+      *****************************************************************
+      *     FabFive TEAM:
+      *     TECH-LEAD:  RICHARD DARROW
+      *     PROGRAMMER/ANALYST:  AGAPIOS KALOKERINOS
+      *     PROGRAMMER/ANALYST:  DORETHA RILEY
+      *     TESTER:  ROBERTA ADRIANA de SOUZA
+      *     TESTER:  WENDY J. WILSON
+      ******************************************************************
+      ****                 FINAL EXAM
+      ****
+      **** THIS SUBROUTINE RECEIVES A SUPPLIER RECORD AND VAILIDATES THE
+      **** CONTENTS OF THE RECORD
+      **** IF ERRORS FOUND IT RETURNS A ERROR MESSAGE TABLE AND A
+      **** RETURN CODE TO THE CALLING PROGRAM.
+      ****
+      ******************************************************************
+      
+       ENVIRONMENT DIVISION.
+       INPUT-OUTPUT SECTION.
+      
+       DATA DIVISION.
+      
+       WORKING-STORAGE SECTION.
+       77  WS-STORAGE-IND                PIC X(60)
+                     VALUE     'WORKING STORAGE BEGINS HERE'.
+      
+       01  W-INPUT-DATE-INT             PIC 9(9) COMP.
+      
+       01  W-PICSTR-IN.
+           10  W-PICSTR-LTH-IN          PIC S9(4) COMP VALUE 8.
+           10  W-PICSTR-STR-IN          PIC X(8)  VALUE 'YYYYMMDD'.
+      
+       01  W-DATE-IN-CEE.
+           10  W-DATE-IN-LTH-CEE        PIC S9(4) COMP VALUE 8.
+           10  W-DATE-IN-STR-CEE        PIC X(8).
+      
+       01  FC.
+           10  FC-SEV                   PIC S9(4) COMP.
+           10  FC-MSG                   PIC S9(4) COMP.
+           10  FC-CTW                   PIC X.
+           10  FC-FAC                   PIC X(3).
+           10  FC-ISI                   PIC S9(8) COMP.
+      
+       01 FILLER                        PIC X(12)
+                         VALUE 'WS ENDS HERE'.
+      
+      *****************************************************************
+       LINKAGE SECTION.
+       01  LS-SUPPLIERS.
+           05  LS-SUPPLIER-CODE     PIC X(10) VALUE SPACES.
+           05  LS-SUPPLIER-TYPE     PIC X(01) VALUE SPACES.
+               88 SUBCONTRACTOR  VALUE 'S'.
+               88 DISTRIBUTOR    VALUE 'D'.
+               88 MANUFACTURER   VALUE 'M'.
+               88 IMPORTER       VALUE 'I'.
+               88 VALID-TYPE     VALUE 'S' 'D' 'M' 'I'.
+           05  LS-SUPPLIER-NAME     PIC X(15) VALUE SPACES.
+           05  LS-SUPPLIER-PERF     PIC 9(03) VALUE ZERO.
+           05  LS-SUPPLIER-RATING   PIC X(01) VALUE SPACES.
+                88 HIGHEST-QUALITY VALUE '3'.
+                88 AVERAGE-QUALITY VALUE '2'.
+                88 LOWEST-QUALITY  VALUE '1'.
+                88 VALID-RATING  VALUE '1' '2' '3'.
+           05  LS-SUPPLIER-STATUS   PIC X(01) VALUE SPACES.
+                88 GOVT-COMM       VALUE '1'.
+                88 GOVT-ONLY       VALUE '2'.
+                88 COMMERCIAL-ONLY VALUE '3'.
+                88 VALID-STATUS  VALUE '1' '2' '3'.
+           05  LS-SUPPLIER-ACT-DATE PIC X(08) VALUE ZERO.
+      
+       01  LS-RC                                PIC 9.
+      
+       01  LS-ERROR-SUPPLIER.
+           05 LS-ERROR-SUPP-DETAIL
+                    OCCURS 20 TIMES INDEXED BY LS-ERR-IDX.
+                10 LS-ERR-MSG                   PIC X(50).
+      
+      *****************************************************************
+      
+       PROCEDURE DIVISION USING LS-SUPPLIERS, LS-RC, LS-ERROR-SUPPLIER.
+           INITIALIZE LS-ERROR-SUPPLIER, LS-RC.
+           PERFORM 200-VALIDATE-SUPPLIER.
+           PERFORM 300-RETURN-TO-CALLING-PGM.
+           GOBACK.
+      
+       200-VALIDATE-SUPPLIER.
+           SET LS-ERR-IDX TO 1.
+           IF LS-SUPPLIER-CODE = SPACE
+              MOVE '***SUPPLIER CODE CANNOT BE BLANK'
+                                  TO LS-ERR-MSG(LS-ERR-IDX)
+              SET LS-ERR-IDX UP BY 1.
+      
+           IF VALID-RATING
+                NEXT SENTENCE
+           ELSE
+              MOVE '***SUPPLIER RATING MUST BE 1, 2 OR 3'
+                                  TO LS-ERR-MSG(LS-ERR-IDX)
+              SET LS-ERR-IDX UP BY 1.
+      
+           IF VALID-STATUS
+                NEXT SENTENCE
+           ELSE
+              MOVE '***SUPPLIER STATUS MUST BE 1, 2 OR 3'
+                                  TO LS-ERR-MSG(LS-ERR-IDX)
+              SET LS-ERR-IDX UP BY 1.
+      
+           IF LS-SUPPLIER-TYPE = SPACE
+              MOVE '***SUPPLIER TYPE CANNOT BE BLANK'
+                                  TO LS-ERR-MSG(LS-ERR-IDX)
+              SET LS-ERR-IDX UP BY 1
+           ELSE
+              IF VALID-TYPE
+                 IF SUBCONTRACTOR
+                    IF HIGHEST-QUALITY
+                        NEXT SENTENCE
+                    ELSE
+                        MOVE
+                    '***SUBCONTRACTOR RATING MUST BE HIGHEST QUALITY'
+                                  TO LS-ERR-MSG(LS-ERR-IDX)
+                        SET LS-ERR-IDX UP BY 1
+                    END-IF
+                 ELSE
+                    NEXT SENTENCE
+                 END-IF
+              ELSE
+                 MOVE '***SUPPLIER TYPE MUST BE S D M OR I'
+                                  TO LS-ERR-MSG(LS-ERR-IDX)
+                 SET LS-ERR-IDX UP BY 1
+              END-IF
+           END-IF.
+      
+           IF LS-SUPPLIER-NAME = SPACE
+              MOVE '***SUPPLIER NAME CANNOT BE BLANK'
+                                  TO LS-ERR-MSG(LS-ERR-IDX)
+              SET LS-ERR-IDX UP BY 1.
+      
+           IF LS-SUPPLIER-PERF = ZERO
+              MOVE '***SUPPLIER PERFORMANCE CANNOT BE BLANK'
+                                  TO LS-ERR-MSG(LS-ERR-IDX)
+              SET LS-ERR-IDX UP BY 1
+           END-IF.
+      
+           PERFORM 250-DATE-CHECK.
+           IF FC-SEV NOT = ZERO
+              MOVE '***SUPPLIER ACCOUNT DATE IS INVALID'
+                                  TO LS-ERR-MSG(LS-ERR-IDX)
+              SET LS-ERR-IDX UP BY 1.
+      
+       250-DATE-CHECK.
+           MOVE LS-SUPPLIER-ACT-DATE TO W-DATE-IN-STR-CEE.
+           CALL 'CEEDAYS' USING W-DATE-IN-CEE,
+                    W-PICSTR-IN, W-INPUT-DATE-INT, FC.
+      
+       300-RETURN-TO-CALLING-PGM.
+           IF LS-ERR-MSG(1) = SPACES
+              MOVE 0 TO LS-RC
+           ELSE
+              MOVE 8 TO LS-RC.
