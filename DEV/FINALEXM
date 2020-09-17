@@ -22,7 +22,7 @@
        ENVIRONMENT DIVISION.
        INPUT-OUTPUT SECTION.
        FILE-CONTROL.
-         SELECT PARTFILE
+           SELECT PARTFILE
                ASSIGN TO PARTSIN
                ORGANIZATION IS SEQUENTIAL
                FILE STATUS IS PARTFILE-ST.
@@ -370,7 +370,9 @@
            MOVE 'Y' TO VALID-RECORD-FLAG.
            MOVE 0 TO ERROR-COUNTER.
       
+      *****************************************************************
       *    VALIDATE INPUT RECORDS
+      *****************************************************************
            PERFORM 210-VALIDATE-PARTS.
            IF ERROR-COUNTER > 3
               PERFORM 250-PROCESS-INVALID-RECORD
@@ -398,8 +400,9 @@
                   END-IF
                 END-IF
            END-IF.
-      
+      *****************************************************************
       *    WRITE THE ERRORS OR VALID RECORDS AND REPORT
+      *****************************************************************
            IF ERROR-COUNTER > 0 AND ERROR-COUNTER < 4
                 PERFORM 260-PROCESS-ERRORS
            ELSE
@@ -412,9 +415,9 @@
       
            PERFORM 450-READ-PARTS.
       
-      *==============================================================
-      
+      *****************************************************************
       *    VALIDATE PARTS FIELDS
+      *****************************************************************
        210-VALIDATE-PARTS.
            CALL 'PARTEDIT' USING
                     PARTS, WS-RC, WS-ERROR-PART.
@@ -435,7 +438,9 @@
                  MOVE 'N' TO VALID-RECORD-FLAG
            END-IF.
       
+      *****************************************************************
       *    VALIDATE SUPPLIER FIELDS
+      *****************************************************************
        220-VALIDATE-SUPPLIERS.
            CALL 'SUPPEDIT' USING
                     SUPPLIERS, WS-RC, WS-ERROR-SUPPLIER.
@@ -456,7 +461,9 @@
                 MOVE 'N' TO VALID-RECORD-FLAG
            END-IF.
       
+      *****************************************************************
       *    VALIDATE SUPPLIER ADDRESS FIELDS
+      *****************************************************************
        230-VALIDATE-SUPP-ADDRESS.
            CALL 'SADREDIT' USING
                     SUPP-ADDRESS(ADDR-IDX), WS-RC, WS-ERROR-SADDR,
@@ -478,7 +485,9 @@
                 MOVE 'N' TO VALID-RECORD-FLAG
            END-IF.
       
+      *****************************************************************
       *    VALIDATE PURCHASE ORDER FIELDS
+      *****************************************************************
        240-VALIDATE-PURCHASE-ORDERS.
            CALL 'PORDEDIT' USING
                     PURCHASE-ORDER(PO-IDX), WS-RC, WS-ERROR-PO.
@@ -498,9 +507,9 @@
                 MOVE 'N' TO VALID-RECORD-FLAG
            END-IF.
       
-      *==============================================================
-      
+      *****************************************************************
       *    PROCESS INVALID RECORDS
+      *****************************************************************
        250-PROCESS-INVALID-RECORD.
       
            MOVE PART-SUPP-ADDR-PO TO ERROR-LINE.
@@ -513,7 +522,9 @@
            DISPLAY " ********* RECORD IS COMPLETELY INVALID **********"
            DISPLAY SPACES.
       
+      *****************************************************************
       *    PROCESS ERRORS FOUND
+      *****************************************************************
        260-PROCESS-ERRORS.
            MOVE PART-SUPP-ADDR-PO TO ERROR-LINE.
       
@@ -534,8 +545,9 @@
            WRITE ERROR-FILE.
            DISPLAY SPACES.
       
-      
+      *****************************************************************
       *    PROCESS VALID RECORDS AND WRITE REPORTS
+      *****************************************************************
        270-PROCESS-VALID-RECORD.
            PERFORM 272-WRITE-PART.
            PERFORM 274-WRITE-SUPPLIER.
@@ -679,8 +691,9 @@
            ADD 1 TO LINE-COUNT.
            WRITE PRINT-LINE.
       
-      *==============================================================
-      
+      *****************************************************************
+      *    OPEN FILES - READ FILES
+      *****************************************************************
        300-OPEN-FILES.
            OPEN INPUT PARTFILE
            IF NOT PARTFILE-OK
@@ -752,12 +765,18 @@
               GO TO 999-ERROR-RTN
            END-IF.
       
+      *****************************************************************
+      *    CLOSE FILES
+      *****************************************************************
        900-WRAP-UP.
            CLOSE PARTFILE, SUPPLOUT, SUPADROUT, PORDOUT,
                  ERRORFILE, PRINTFILE.
        999-ERROR-RTN.
            GOBACK.
       
+      *****************************************************************
+      *    WRITE HEADER / DETAIL LINES / REPORT TOTALS
+      *****************************************************************
        800-WRITE-HEADER-LINES.
            MOVE +1          TO LINE-COUNT.
            ADD  +1          TO PAGE-COUNT.
@@ -813,6 +832,5 @@
                    TO PRINT-LINE
                 WRITE PRINT-LINE
            END-IF.
-         
-
-
+      
+     
