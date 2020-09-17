@@ -13,8 +13,11 @@
       *TESTER:  ROBERTA ADRIANA de SOUZA
       *TESTER:  WENDY J. WILSON
       *****************************************************************
-      
+       ENVIRONMENT DIVISION.
+       INPUT-OUTPUT SECTION.
+       
        DATA DIVISION.
+       
        WORKING-STORAGE SECTION.
       
        01  PARTSUPP-INPUT.
