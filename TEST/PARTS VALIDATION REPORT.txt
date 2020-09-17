@@ -1,0 +1,373 @@
+2020/09/16                                         PARTS VALIDATION REPORT                                  Page   1
+ 
+ PART NAME               WEEKS LEAD TIME     VEHICLE MAKE        SUPPLIER NAME       SUPPLIER RATING
+--------------------     ---------------     ---------------     ---------------     ---------------
+AIR FILTER                    4               GM                 KEVINS MACHINES     HIGHEST-QUALITY
+ 
+Order Address: 6350 NE BARRY   ATTN: JODIE     PO BOX 45321    KANSAS CITY     MO 64151
+Sched Address: 7687 NW PRARIE  ATTN: DOCK      PO BOX 45981    KANSAS CITY     MO 64151
+Remit Address: 1407 ENGLEWOOD  ATTN: DUKE      SHIPPING DEPT   KANSAS CITY     MO 64117
+ 
+Total # Purchase Orders:                      3
+Total Quantity In Purchase Orders:           14
+Total Price In Purchase Orders:       $3,000.00
+ 
+TRANSMISSION                  4               FORD               FORD MOTOR CO       HIGHEST-QUALITY
+ 
+Order Address: 8121 US 69 HWY  PO BOX 64355    ATTN: PARTS     CLAYCOMO        MO 64119
+Sched Address: 2525 SKEETER DR ATTN: ASWALU    PO BOX 45611    FAIRBANKS       AK 99701
+Remit Address: PO BOX 68139    ATTN: ACCT REC  1235 CHERRY STR CLAYCOMO        MO 64119
+ 
+Total # Purchase Orders:                      3
+Total Quantity In Purchase Orders:            9
+Total Price In Purchase Orders:      $21,800.00
+ 
+AIR SPRING                    4               GM                 BOBS CORVETTES      AVERAGE-QUALITY
+ 
+Order Address: 3201 FAIRFAX    PO BOX 45612    ATTN: ELLIOTT   KANSAS CITY     KS 66115
+Sched Address: 100 SATURN      PO BOX 34451    ATTN: SHERRY    SPRINGHILL      TN 37174
+Remit Address: PO BOX 68497    2378 WAGON ROAD ATTN: BOB       KANSAS CITY     KS 66115
+ 
+Total # Purchase Orders:                      3
+Total Quantity In Purchase Orders:           43
+Total Price In Purchase Orders:      $26,100.00
+ 
+AXLE                          4               FORD               BEST IN THE BIZ     HIGHEST-QUALITY
+ 
+Order Address: 12 JAMES ROAD   ATTN: JESSE     PO BOX 64156    HANNIBAL        MO 63401
+Sched Address: 14 THOMAS DR    ATTN: LEALON    OPEN FIRST      KANSAS CITY     MO 64161
+Remit Address: 4684 BENTON ST  ATTN: SUSIE     PERSONAL        FENTON          MO 63026
+ 
+Total # Purchase Orders:                      3
+Total Quantity In Purchase Orders:            8
+Total Price In Purchase Orders:       $4,000.00
+ 
+2020/09/16                                         PARTS VALIDATION REPORT                                  Page   2
+ 
+ PART NAME               WEEKS LEAD TIME     VEHICLE MAKE        SUPPLIER NAME       SUPPLIER RATING
+--------------------     ---------------     ---------------     ---------------     ---------------
+BALL JOINT                    4               JAGUAR             BOB'S USED CARS     AVERAGE-QUALITY
+ 
+Order Address: 4675 ELM LANE   ATTN: BETTY JO  RUSH ORDER      YALAPALOOZA     MI 48084
+Sched Address: 6479 WALNUT     ATTN: JILL J.   PARTS ENCLOSED  SEATTLE         WA 98301
+Remit Address: 4219 BRIDGE RD  ATTN: SCOTT     CASH ENCLOSED   NOWHERE         KS 66102
+ 
+Total # Purchase Orders:                      3
+Total Quantity In Purchase Orders:           47
+Total Price In Purchase Orders:      $13,500.00
+ 
+BATTERY                       4               TOYOTA             INFINITY BYOND      AVERAGE-QUALITY
+ 
+Order Address: 2380 PLATTE RD  ORDER ENCLOSED  ATTN: PATTY     ALAMEDA         HI 96806
+Sched Address: 2381 APPLE LANE PO BOX 62451    ATTN: JUNE      ALBANY          VA 24500
+Remit Address: 3942 VENICE ST  PO BOX 64157    ATTN: DIANE     ALEX CITY       WA 98501
+ 
+Total # Purchase Orders:                      3
+Total Quantity In Purchase Orders:           20
+Total Price In Purchase Orders:      $12,000.00
+ 
+BENCH SEAT                    4               BMW                PASIANO AUTO        HIGHEST-QUALITY
+ 
+Order Address: 4238 MERRY LANE ATTN: JANE      ORDER ENCLOSED  ANNISTON        GA 31033
+Sched Address: 9869 BOPEEP DR  ATTN: MS PEEP   PLEASE OPEN     ANAHEIM         FL 33016
+Remit Address: 4204 COTTON RD  PO BOX 12894    ATTN: DONNITA   ARLINGTON       CO 81038
+ 
+Total # Purchase Orders:                      3
+Total Quantity In Purchase Orders:           14
+Total Price In Purchase Orders:      $31,900.00
+ 
+BRAKE HOSE                    3               GM                 VAN SUBARU          LOWEST-QUALITY
+ 
+Order Address: 3694 OCEAN AVE  PO BOX 65116    ATTN: CAPTAIN   ATHENS          MO 65251
+Sched Address: 2682 OLD WHARF  PO BOX 78115    ATTN: 1ST MATE  ATMORE          AR 71707
+Remit Address: 4923 SEAWALL    PO BOX 13135    ATTN: SARAH     AUBURN          AZ 86000
+ 
+Total # Purchase Orders:                      3
+Total Quantity In Purchase Orders:           73
+Total Price In Purchase Orders:       $5,860.00
+ 
+2020/09/16                                         PARTS VALIDATION REPORT                                  Page   3
+ 
+ PART NAME               WEEKS LEAD TIME     VEHICLE MAKE        SUPPLIER NAME       SUPPLIER RATING
+--------------------     ---------------     ---------------     ---------------     ---------------
+BRAKE PEDAL                   3               GM                 OAKES KIA           AVERAGE-QUALITY
+ 
+Order Address: 3301 COTTON RD  PO BOX 45921    ATTN: SCOTT     BOCA RATON      FL 33010
+Sched Address: 3302 BLM BLVD   PO BOX 46712    ATTN: DONALD    BOISE           CO 80504
+Remit Address: 3296 PIANO ROAD POX 43879       ATTN: JOANN     BOONE           FL 33015
+ 
+Total # Purchase Orders:                      3
+Total Quantity In Purchase Orders:           60
+Total Price In Purchase Orders:       $3,385.00
+ 
+BRAKE PISTON                  3               GM                 JACK MILLER         LOWEST-QUALITY
+ 
+Order Address: 2193 GILDER AVE PO BOX 43298    ATTN: JILL      BOSTON          MT 59215
+Sched Address: 2198 FARMER ST  PO BOX 48912    ATTN: DAVID     BOULDER CITY    VA 20040
+Remit Address: 2201 WAGON ROAD PO BOX 48912    ATTN: MILO      BOURNE          WA 98503
+ 
+Total # Purchase Orders:                      3
+Total Quantity In Purchase Orders:           28
+Total Price In Purchase Orders:       $2,280.00
+ 
+BRAKE PUMP                    3               GM                 MIDWAY AUTO         LOWEST-QUALITY
+ 
+Order Address: 3853 GREEN LANE PO BOX 89112    ATTN: MOLLY     BOWIE           WY 82011
+Sched Address: 3859 LENOX RD   PO BOX 48312    ATTN: JOHNNY    BROCKTON        WA 98400
+Remit Address: 9463 APPLE LANE PO BOX 41297    ATTN: REBECCA   CALDWELL        MT 59011
+ 
+Total # Purchase Orders:                      3
+Total Quantity In Purchase Orders:           33
+Total Price In Purchase Orders:       $2,575.00
+ 
+BRAKE ROLL                    3               GM                 AUTOBAHN            LOWEST-QUALITY
+ 
+Order Address: 8957 VENICE ST  PO BOX 46233    ATTN: BONITA    CAPE CORAL      GA 31035
+Sched Address: 2229 TECH AVE   PO BOX 43899    ATTN: PHILLIP   CARBONDALE      FL 32052
+Remit Address: 2235 WATER LANE PO BOX 46125    ATTN: AGAPIOS   CARSON CITY     CA 94722
+ 
+Total # Purchase Orders:                      3
+Total Quantity In Purchase Orders:           56
+Total Price In Purchase Orders:       $5,705.00
+ 
+2020/09/16                                         PARTS VALIDATION REPORT                                  Page   4
+ 
+ PART NAME               WEEKS LEAD TIME     VEHICLE MAKE        SUPPLIER NAME       SUPPLIER RATING
+--------------------     ---------------     ---------------     ---------------     ---------------
+BRAKE ROTOR                   3               GM                 MC AUTO             AVERAGE-QUALITY
+ 
+Order Address: 2272 BLUE LANE  PO BOX 46591    ATTN: SCOTT     CARTHAGE        MO 64119
+Sched Address: 6686 SEAWALL    PO BOX 46815    ATTN: WENDY     CEDAR RAPIDS    IA 52001
+Remit Address: 2271 GHOST LANE PO BOX 56712    ATTN: CASPER    CENTRALIA       MO 65251
+ 
+Total # Purchase Orders:                      3
+Total Quantity In Purchase Orders:           60
+Total Price In Purchase Orders:      $38,045.00
+ 
+BRAKES                        2               CHRYSLER           NORTHTOWNE          LOWEST-QUALITY
+ 
+Order Address: 7794 BUS AVENUE PO BOX 39457    ATTN: SERENITY  CHELSEA         NV 89102
+Sched Address: 8504 POET LANE  PO BOX 66489    ATTN: CALEB     CHICKASAW       OK 73104
+Remit Address: 6501 DEAN AVE   PO BOX 65011    ATTN: JAMES     CLANTON         OK 73198
+ 
+Total # Purchase Orders:                      3
+Total Quantity In Purchase Orders:           88
+Total Price In Purchase Orders:      $13,700.00
+ 
+SHOCKS                        2               CHRYSLER           SCOTTS CARS         LOWEST-QUALITY
+ 
+Order Address: 7794 RED AVENUE PO BOX 39457    ATTN: SERENITY  CHELSEA         NV 89102
+Sched Address: 8207 JOEY ROAD  PO BOX 29758    ATTN: JONNY     SAW MILL        OK 73104
+Remit Address: 4201 REDROCK LN PO BOX 58195    ATTN: SCOTT     CLAREMORE       OK 73198
+ 
+Total # Purchase Orders:                      3
+Total Quantity In Purchase Orders:           88
+Total Price In Purchase Orders:      $13,700.00
+ 
+BUMPER                        2               CHRYSLER           VAN CHEVROLET       HIGHEST-QUALITY
+ 
+Order Address: 4369 TECH AVE   PO BOX 67912    ATTN: TASHA     CLANTON         RI 02913
+Sched Address: 2985 CENTRAL    PO BOX 12678    ATTN: JOANN     CLEARWATER      FL 33013
+Remit Address: 2247 MAPLE LANE PO BOX 4267     ATTN: CINDY     DELRAY BEACH    FL 34055
+ 
+Total # Purchase Orders:                      3
+Total Quantity In Purchase Orders:           20
+Total Price In Purchase Orders:      $17,700.00
+ 
+2020/09/16                                         PARTS VALIDATION REPORT                                  Page   5
+ 
+ PART NAME               WEEKS LEAD TIME     VEHICLE MAKE        SUPPLIER NAME       SUPPLIER RATING
+--------------------     ---------------     ---------------     ---------------     ---------------
+CALIPER                       2               CHRYSLER           OPEN AUTO           AVERAGE-QUALITY
+ 
+Order Address: 6875 APPLE LANE PO BOX 12890    ATTN: CHERRYL   CANYON CITY     KS 66405
+Sched Address: 2379 LENOX ROAD PO BOX 48321    ATTN: MITCH     DENVER          CO 81400
+Remit Address: 4678 GREEN LANE PO BOX 46812    ATTN: BETH      DES MOINES      IA 68120
+ 
+Total # Purchase Orders:                      3
+Total Quantity In Purchase Orders:           40
+Total Price In Purchase Orders:       $6,000.00
+ 
+CAMSHAFT                      2               CHRYSLER           TESLA OF KC         HIGHEST-QUALITY
+ 
+Order Address: 3941 TECH AVE   PO BOX 55678    ATTN: SEAN      DETROIT         MI 49701
+Sched Address: 4681 CHERRY STR PO BOX 55912    ATTN: TERRY     DIXON           MO 65301
+Remit Address: 4242 PLATTE RD  PO BOX 45611    ATTN: ANNE      DOTHAN          MT 59135
+ 
+Total # Purchase Orders:                      3
+Total Quantity In Purchase Orders:           16
+Total Price In Purchase Orders:      $36,190.00
+ 
+CLUTCH DISK                   2               CHRYSLER           GLAD AUTO           LOWEST-QUALITY
+ 
+Order Address: 4682 PURPLE RD  PO BOX 45138    ATTN: THOMAS    DUBUQUE         VA 24304
+Sched Address: 4240 COTTON RD  PO BOX 12864    ATTN: RHONDA    EAST ORANGE     WA 98502
+Remit Address: 4243 BLUE LANE  PO BOX 58711    ATTN: DENISE    ENGLEWOOD       HI 96809
+ 
+Total # Purchase Orders:                      3
+Total Quantity In Purchase Orders:           34
+Total Price In Purchase Orders:      $19,400.00
+ 
+COIL SPRING                   2               CHRYSLER           DRIVETIME           AVERAGE-QUALITY
+ 
+Order Address: 9868 GHOST LANE PO BOX 66512    ATTN: ROSS      FLORENCE        WA 98509
+Sched Address: 9869 BOPEEP DR  PO BOX 64198    ATTN: KEVIN     FLORISSANT      MO 65307
+Remit Address: 4204 COTTON RD  PO BOX 62489    ATTN: PAYTON    FORT MORGAN     GA 31038
+ 
+Total # Purchase Orders:                      3
+Total Quantity In Purchase Orders:           52
+Total Price In Purchase Orders:      $19,680.00
+ 
+2020/09/16                                         PARTS VALIDATION REPORT                                  Page   6
+ 
+ PART NAME               WEEKS LEAD TIME     VEHICLE MAKE        SUPPLIER NAME       SUPPLIER RATING
+--------------------     ---------------     ---------------     ---------------     ---------------
+DECKLID                       2               CHRYSLER           BARON BMW           HIGHEST-QUALITY
+ 
+Order Address: 3689 GILDER AVE PO BOX 45677    ATTN: ROSEMARY  FREDERICK       MO 64151
+Sched Address: 3691 LUCY ST    PO BOX 55611    ATTN: LUCY      FULTON          MO 65251
+Remit Address: 3692 WAGON ROAD PO BOX 55798    ATTN: JESSE     GLENDALE        CA 94722
+ 
+Total # Purchase Orders:                      3
+Total Quantity In Purchase Orders:           10
+Total Price In Purchase Orders:       $9,060.00
+ 
+DISTRIBUTOR                   2               CHRYSLER           BEST BUY CAR        LOWEST-QUALITY
+ 
+Order Address: 4202 BLUE LANE  PO BOX 56124    ATTN: ROBERT    HAGERSTOWN      CT 06920
+Sched Address: 4199 COTTON RD  PO BOX 56131    ATTN: KAY       HANNIBAL        MO 64119
+Remit Address: 3693 GREEN LANE PO BOX 78952    ATTN: JAMES     HAINES          SC 29801
+ 
+Total # Purchase Orders:                      3
+Total Quantity In Purchase Orders:           48
+Total Price In Purchase Orders:      $16,990.00
+ 
+ENGINE                        2               CHRYSLER           BOB ALLEN           LOWEST-QUALITY
+ 
+Order Address: 4925 WATER LANE PO BOX 55312    ATTN: SUSIE     HOT SPRINGS     AR 75502
+Sched Address: 2686 OCEAN AVE  PO BOX 12486    ATTN: RUBY      IRVINE          CA 92110
+Remit Address: 2687 BLUE LANE  PO BOX 45135    ATTN: JANE      JASPER          CO 81033
+ 
+Total # Purchase Orders:                      3
+Total Quantity In Purchase Orders:           13
+Total Price In Purchase Orders:      $33,700.00
+ 
+FENDER                        1               CHRYSLER           VANTAGE CARS        LOWEST-QUALITY
+ 
+Order Address: 3295 GREEN LANE PO BOX 12745    ATTN: BILL      KINGDOM CITY    MO 65251
+Sched Address: 3297 PURPLE RD  PO BOX 45135    ATTN: JAKE      LAKE WALES      ND 58800
+Remit Address: 3299 LENOX RD   PO BOX 45135    ATTN: DAVE      LAKELAND        CA 96100
+ 
+Total # Purchase Orders:                      3
+Total Quantity In Purchase Orders:           20
+Total Price In Purchase Orders:      $17,400.00
+ 
+2020/09/16                                         PARTS VALIDATION REPORT                                  Page   7
+ 
+ PART NAME               WEEKS LEAD TIME     VEHICLE MAKE        SUPPLIER NAME       SUPPLIER RATING
+--------------------     ---------------     ---------------     ---------------     ---------------
+FLYWHEEL                      1               CHRYSLER           JAY WOLFE           HIGHEST-QUALITY
+ 
+Order Address: 3303 BOPEEP DR  PO BOX 12378    ATTN: JOE       LUDLOW          OK 73152
+Sched Address: 2199 MAPLE LANE PO BOX 23451    ATTN: JOE       LYNN            KS 67501
+Remit Address: 2202 COTTON RD  PO BOX 65123    ATTN: JIM       MAILBU          CA 94724
+ 
+Total # Purchase Orders:                      3
+Total Quantity In Purchase Orders:           28
+Total Price In Purchase Orders:      $25,300.00
+ 
+FUEL CAP                      1               CHRYSLER           CARVANA             HIGHEST-QUALITY
+ 
+Order Address: 4366 SEAWALL    PO BOX 12456    ATTN: RANDY     MARBLEHEAD      ID 83409
+Sched Address: 4367 WATER LANE PO BOX 56771    ATTN: JOYCE     MELBOURNE       MT 59132
+Remit Address: 4368 VENICE ST  PO BOX 45138    ATTN: STEVEN    MIAMI           FL 32055
+ 
+Total # Purchase Orders:                      3
+Total Quantity In Purchase Orders:           81
+Total Price In Purchase Orders:       $6,575.00
+ 
+FUEL CELL                     1               VOLKSWAGEN         TOMS USED CARS      LOWEST-QUALITY
+ 
+Order Address: 4369 TECH AVE   PO BOX 45311    ATTN: ZOE       MIAMI           FL 34050
+Sched Address: 3856 APPLE LANE PO BOX 45831    ATTN: RUTH      MIDLAND         GA 31033
+Remit Address: 6592 TECH AVE   ATTN: ROBERT    CASH ENCLOSED   MILTON          OR 97650
+ 
+Total # Purchase Orders:                      3
+Total Quantity In Purchase Orders:           52
+Total Price In Purchase Orders:      $24,760.00
+ 
+FUEL FILTER                   1               VOLKSWAGEN         RICART AUTO         AVERAGE-QUALITY
+ 
+Order Address: 3844 MERRY LANE PO BOX 64532    ATTN: RUDOLPH   MONROE          UT 84507
+Sched Address: 3842 COTTON RD  PO BOX 12789    ATTN: DENNIS    MONTROSE        CA 92110
+Remit Address: 123 SANTA DRIVE PO BOX N. POLE  ATTN SANTA      NEW SMYRNA      FL 33017
+ 
+Total # Purchase Orders:                      3
+Total Quantity In Purchase Orders:          120
+Total Price In Purchase Orders:       $9,350.00
+ 
+2020/09/16                                         PARTS VALIDATION REPORT                                  Page   8
+ 
+ PART NAME               WEEKS LEAD TIME     VEHICLE MAKE        SUPPLIER NAME       SUPPLIER RATING
+--------------------     ---------------     ---------------     ---------------     ---------------
+FUEL GUAGE                    1               FORD               TAYLOR AUTO         LOWEST-QUALITY
+ 
+Order Address: 4682 PURPLE RD  PO BOX 45211    ATTN: BYRD      OCEANSIDE       CA 92112
+Sched Address: 4679 BLUE LANE  PO BOX 32165    ATTN: ROBIN     ORANGE          CA 94725
+Remit Address: 4679 RED LANE   PO BOX 12378    ATTN: CAROL     PACIFIC GROVE   CA 92108
+ 
+Total # Purchase Orders:                      3
+Total Quantity In Purchase Orders:           62
+Total Price In Purchase Orders:       $5,244.00
+ 
+FUEL INJECTOR                 1               VOLKSWAGEN         CHEAP AUTO          HIGHEST-QUALITY
+ 
+Order Address: 4239 WAGON ROAD PO BOX 45311    ATTN: BATMAN    PALM SPRINGS    CA 92111
+Sched Address: 4240 COTTON RD  PO BOX 56177    ATTN: LIZZIE    PEABODY         MT 59213
+Remit Address: 4198 LENOX ROAD PO BOX 56134    ATTN: GLENDA    PITTSFIELD      PA 18507
+ 
+Total # Purchase Orders:                      3
+Total Quantity In Purchase Orders:           47
+Total Price In Purchase Orders:      $43,760.00
+ 
+TRANSMISSION                  1               VOLKSWAGEN         RALPH'S VW SHOP     HIGHEST-QUALITY
+ 
+Order Address: 5220 CTY RD 207 ATTN: RALPH     PARTS ORDER     FULTON          MO 65251
+Sched Address: 2345 SANTRA TRL ATTN: DON KNOTT PLEASE UNPACK   SANTA FE        NM 87501
+Remit Address: PO BOX 615061   ATTN: FINANCE   CHECK ENCLOSED  FULTON          MO 65251
+ 
+Total # Purchase Orders:                      3
+Total Quantity In Purchase Orders:            7
+Total Price In Purchase Orders:      $64,700.00
+ 
+MOTOR                         2               FORD               JACKSTACK FORD      AVERAGE-QUALITY
+ 
+Order Address: 4361 NW 62ST ST ATTN: MR. STACK PERSONAL        SACRAMENTO      CA 94230
+Sched Address: 3809 VROOMAN    ATTN: JULIE     PARTS ENCLOSED  NEW YORK        NY 10035
+Remit Address: PO BOX 62062    ATTN: MR. STACK CHECK ENCLOSED  SACRAMENTO      CA 94203
+ 
+Total # Purchase Orders:                      3
+Total Quantity In Purchase Orders:            6
+Total Price In Purchase Orders:      $36,000.00
+ 
+2020/09/16                                         PARTS VALIDATION REPORT                                  Page   9
+ 
+ PART NAME               WEEKS LEAD TIME     VEHICLE MAKE        SUPPLIER NAME       SUPPLIER RATING
+--------------------     ---------------     ---------------     ---------------     ---------------
+PISTON                        3               PEUGEOT            JONS PEUGEOTS       HIGHEST-QUALITY
+ 
+Order Address: 1010 CAPITAL ST ATTN: JON S.    RUSH ORDER      WAKE FOREST     NC 27587
+Sched Address: 4958 VIOLIN DR  ATTN: BECKY SUE DO NOT DROP     BOCA RATON      FL 33433
+Remit Address: 3645 SAYLES RD  ATTN: JON S.    CASH ENCLOSED   WAKE FOREST     NC 27587
+ 
+Total # Purchase Orders:                      3
+Total Quantity In Purchase Orders:           36
+Total Price In Purchase Orders:      $46,200.00
+ 
+                  ========== REPORT TOTALS ==========
+ 
+Total # Purchase Orders:                     99
+Total Quantity In Purchase Orders:        1,333
+Total Price In Purchase Orders:     $635,559.00
+ 
+                         *** END OF REPORT ***
