@@ -152,5 +152,3 @@
               MOVE 0 TO LS-RC
            ELSE
               MOVE 8 TO LS-RC.
-       
-
