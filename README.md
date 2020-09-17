@@ -1,4 +1,4 @@
-# FabFive
+FabFive
 FabFive Team Final Project
                                           
 ENTERPRISE COBOL FOR BUSINESS APPLICATION DEVELOPMENT
@@ -9,9 +9,11 @@ SUMMER 2020
 CLASS INSTRUCTOR:  JONATHAN SAYLES
 
 
-FAB FIVE TEAM                          
-TECH-LEAD:  RICHARD DARROW                 
+FABFIVE TEAM                          
+TECH-LEAD:  RICHARD DARROW    
+             
 PROGRAMMER/ANALYST: AGAPIOS KALOKERINOS       
-PROGRAMMER/ANALYST: DORETHA RILEY                 
+PROGRAMMER/ANALYST: DORETHA RILEY 
+                
 TESTER: ROBERTA ADRIANA de SOUZA                  
 TESTER: WENDY J. WILSON                             
