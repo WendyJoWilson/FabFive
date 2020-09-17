@@ -24,7 +24,7 @@
       
        DATA DIVISION.
       
-      WORKING-STORAGE SECTION.
+       WORKING-STORAGE SECTION.
        77  WS-STORAGE-IND                PIC X(60)
                      VALUE     'WORKING STORAGE BEGINS HERE'.
       
