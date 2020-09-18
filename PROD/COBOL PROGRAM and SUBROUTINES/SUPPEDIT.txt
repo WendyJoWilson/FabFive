@@ -12,7 +12,7 @@
       ******************************************************************
       ****                 FINAL EXAM
       ****
-      **** THIS SUBROUTINE RECEIVES A SUPPLIER RECORD AND VAILIDATES THE
+      **** THIS SUBROUTINE RECEIVES A SUPPLIER RECORD AND VALIDATES THE
       **** CONTENTS OF THE RECORD
       **** IF ERRORS FOUND IT RETURNS A ERROR MESSAGE TABLE AND A
       **** RETURN CODE TO THE CALLING PROGRAM.
