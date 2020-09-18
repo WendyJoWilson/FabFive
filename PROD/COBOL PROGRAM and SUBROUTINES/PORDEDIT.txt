@@ -4,8 +4,8 @@
       *****************************************************************
       *     FabFive TEAM:
       *     TECH-LEAD:  RICHARD DARROW
-      *     PROGRAMMER/ANALYST:  AGAPIOS KALOKERINOS
-      *     PROGRAMMER/ANALYST:  DORETHA RILEY
+      *     PROGRAMMER / ANALYST:  AGAPIOS KALOKERINOS
+      *     ANALYST / FINAL TESTER:  DORETHA RILEY
       *     TESTER:  ROBERTA ADRIANA de SOUZA
       *     TESTER:  WENDY J. WILSON
       
